@@ -113,6 +113,14 @@ models/best_housemd_diagnosis_model.joblib
 
 Model paketi içinde seçilen pipeline, aday modeller, sınıf listesi, test sonuçları, veri özeti ve sınıflandırma raporu bulunmaktadır. Web arayüzü bu dosyayı doğrudan yükleyerek tahmin üretir.
 
+Chatbot için ayrıca aşağıdaki retrieval modeli eklenmiştir:
+
+```text
+models/housemd_chatbot_retrieval_model.joblib
+```
+
+Bu paket, House M.D. veri setindeki vaka satırlarını TF-IDF ile temsil eder ve kullanıcının yazdığı mesaja en yakın örnekleri `NearestNeighbors` ile bulur. Arayüzdeki chatbot bu benzer kayıtları mevcut tanı sınıflandırma modelinin ilk 3 tahminiyle birlikte yanıt metnine dönüştürür.
+
 ## Web Arayüzü
 
 `app.py` dosyası, Python'un standart `http.server` altyapısını kullanarak basit bir web arayüzü sunar. Kullanıcı vaka metni ve klinik alanları doldurduktan sonra model en olası tanı etiketlerini sıralı şekilde döndürür.
@@ -123,6 +131,8 @@ Arayüzün sunduğu temel özellikler:
 - Semptom, test, ilaç, prosedür ve organ alanları
 - Konuşmacı, niyet, tanı aşaması, duygu ve sarkazm alanları
 - En olası 3, 5 veya 10 tanı sonucunu gösterme
+- House M.D. veri setiyle benzer vaka arayan chatbot paneli
+- Chatbot cevaplarında ilk 3 tanı etiketi ve en yakın örnek bilgisini gösterme
 - Model ve veri özet metriklerini görüntüleme
 
 ## Kurulum ve Çalıştırma
@@ -167,8 +177,10 @@ NLP_Project/
 |   +-- Last_HouseMD_DataSet.csv
 +-- models/
 |   +-- best_housemd_diagnosis_model.joblib
+|   +-- housemd_chatbot_retrieval_model.joblib
 +-- app.py
 +-- HouseMD_NLP_Modelleme.ipynb
++-- HouseMD_Chatbot_Egitimi.ipynb
 +-- .gitignore
 +-- README.md
 ```
@@ -186,6 +198,17 @@ NLP_Project/
 - Model karşılaştırması
 - Karışıklık matrisi ve hata analizi
 - En iyi modelin kaydedilmesi
+
+adımları bulunmaktadır.
+
+`HouseMD_Chatbot_Egitimi.ipynb` dosyası chatbot modelinin yeniden üretilebilir eğitim akışını içerir. Notebook içerisinde:
+
+- Veri setinin okunması
+- Chatbot araması için metin ve vaka bağlamı oluşturma
+- TF-IDF özellik çıkarımı
+- Cosine distance tabanlı en yakın komşu modelinin eğitilmesi
+- `models/housemd_chatbot_retrieval_model.joblib` dosyasının kaydedilmesi
+- Örnek chatbot araması
 
 adımları bulunmaktadır.
 

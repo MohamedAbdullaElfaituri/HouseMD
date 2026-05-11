@@ -15,15 +15,18 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent
 MODEL_PATH = ROOT / "models" / "best_housemd_diagnosis_model.joblib"
+CHATBOT_MODEL_PATH = ROOT / "models" / "housemd_chatbot_retrieval_model.joblib"
 HOST = "127.0.0.1"
 PORT = 8501
 
 TEXT_FEATURE_COLUMNS = ["text", "Symptom", "Test", "Drug", "Procedure", "Organ"]
 META_FEATURE_COLUMNS = ["speaker", "Intent", "diagnosis_stage", "Emotion", "Sarcasm"]
 CASE_CONTEXT_TOKEN_LIMIT = 320
+CHAT_HISTORY_LIMIT = 6
 TURKISH_CHARS = "çğıöşü"
 
 MODEL_PACKAGE: dict[str, Any] | None = None
+CHATBOT_PACKAGE: dict[str, Any] | None = None
 
 
 def load_model_package() -> dict[str, Any]:
@@ -33,6 +36,15 @@ def load_model_package() -> dict[str, Any]:
             raise FileNotFoundError(f"Model dosyası bulunamadı: {MODEL_PATH}")
         MODEL_PACKAGE = joblib.load(MODEL_PATH)
     return MODEL_PACKAGE
+
+
+def load_chatbot_package() -> dict[str, Any]:
+    global CHATBOT_PACKAGE
+    if CHATBOT_PACKAGE is None:
+        if not CHATBOT_MODEL_PATH.exists():
+            raise FileNotFoundError(f"Chatbot model dosyası bulunamadı: {CHATBOT_MODEL_PATH}")
+        CHATBOT_PACKAGE = joblib.load(CHATBOT_MODEL_PATH)
+    return CHATBOT_PACKAGE
 
 
 def normalize_text(value: Any) -> str:
@@ -157,6 +169,128 @@ def predict(fields: dict[str, Any], top_k: int = 5) -> dict[str, Any]:
     }
 
 
+def compact_text(value: Any, limit: int = 220) -> str:
+    text = str(value or "").strip()
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rstrip() + "…"
+
+
+def build_chat_query(message: str, history: list[dict[str, Any]] | None = None) -> str:
+    history = history if isinstance(history, list) else []
+    user_turns = [
+        str(item.get("content", ""))
+        for item in history[-CHAT_HISTORY_LIMIT:]
+        if item.get("role") == "user" and str(item.get("content", "")).strip()
+    ]
+    return normalize_text(" ".join([*user_turns, message]))
+
+
+def is_greeting(query: str) -> bool:
+    greetings = {"merhaba", "selam", "selamlar", "hello", "hi", "hey"}
+    return query in greetings or query.startswith("merhaba ") or query.startswith("selam ")
+
+
+def is_help_request(query: str) -> bool:
+    return any(phrase in query for phrase in ["ne yapabilirsin", "nasıl kullan", "yardım", "help"])
+
+
+def record_highlights(record: dict[str, Any]) -> str:
+    labels = [
+        ("semptom", record.get("symptom")),
+        ("test", record.get("test")),
+        ("ilaç", record.get("drug")),
+        ("prosedür", record.get("procedure")),
+        ("organ", record.get("organ")),
+    ]
+    parts = [f"{label}: {value}" for label, value in labels if value]
+    return "; ".join(parts[:3]) or compact_text(record.get("text", ""), 160)
+
+
+def retrieve_chat_matches(query: str, top_k: int = 3) -> list[dict[str, Any]]:
+    package = load_chatbot_package()
+    records = package.get("records", [])
+    if not records:
+        return []
+
+    vectorizer = package["vectorizer"]
+    neighbors = package["neighbors"]
+    query_vector = vectorizer.transform([query])
+    count = max(1, min(top_k, len(records)))
+    distances, indices = neighbors.kneighbors(query_vector, n_neighbors=count)
+
+    matches: list[dict[str, Any]] = []
+    for distance, record_index in zip(distances[0], indices[0]):
+        record = records[int(record_index)]
+        similarity = max(0.0, 1.0 - float(distance))
+        matches.append(
+            {
+                "label": str(record.get("label", "")),
+                "text": compact_text(record.get("text", ""), 220),
+                "highlights": record_highlights(record),
+                "episode": f"S{record.get('season', '?')}E{record.get('episode', '?')}",
+                "similarity": round(similarity, 4),
+                "percent": round(similarity * 100, 2),
+            }
+        )
+    return matches
+
+
+def chatbot_reply(message: str, history: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    if not str(message or "").strip():
+        raise ValueError("Chatbot için bir mesaj yazın.")
+
+    query = build_chat_query(message, history)
+    if not query:
+        raise ValueError("Chatbot için anlamlı bir vaka metni yazın.")
+
+    if is_greeting(query):
+        return {
+            "reply": "Merhaba. Bana vaka metnini, semptomları, testleri veya şüphelendiğin tanıyı yazabilirsin; ben de veri setindeki benzer House M.D. vakalarıyla birlikte tanı modelinin öne çıkardığı etiketi söylerim.",
+            "predictions": [],
+            "matches": [],
+            "summary": load_chatbot_package().get("summary", {}),
+        }
+
+    if is_help_request(query):
+        return {
+            "reply": "Kısa bir vaka anlatımı yazman yeterli: semptom, organ, test sonucu, kullanılan ilaç veya prosedür gibi ayrıntılar benzer vaka bulmayı güçlendirir. Cevaplar eğitim amaçlıdır.",
+            "predictions": [],
+            "matches": [],
+            "summary": load_chatbot_package().get("summary", {}),
+        }
+
+    matches = retrieve_chat_matches(query, top_k=3)
+    prediction = predict({"text": message, "case_context": query}, top_k=3)
+    predictions = prediction.get("predictions", [])
+    best = predictions[0] if predictions else {}
+    best_label = best.get("label", "belirsiz")
+    best_percent = best.get("percent", 0)
+    best_match = matches[0] if matches else {}
+
+    if best_match and best_match.get("similarity", 0) >= 0.08:
+        evidence = best_match.get("highlights") or best_match.get("text")
+        reply = (
+            f"Bu vaka için tanı modelinin en güçlü etiketi {best_label} "
+            f"(yaklaşık %{best_percent:.2f}). Veri setindeki en yakın örnek "
+            f"{best_match.get('episode', '')} kaydından geliyor; öne çıkan ipuçları: {evidence}. "
+            "Daha net bir cevap için semptom, test ve organ bilgisini ayrı ayrı yazabilirsin."
+        )
+    else:
+        reply = (
+            f"Bu mesaj veri setindeki örneklerle zayıf eşleşti, ama tanı modeli yine de "
+            f"{best_label} etiketini öne çıkarıyor (yaklaşık %{best_percent:.2f}). "
+            "Daha klinik ayrıntı eklersen benzer vaka araması daha anlamlı olur."
+        )
+
+    return {
+        "reply": reply + " Bu çıktı gerçek klinik öneri değildir.",
+        "predictions": predictions,
+        "matches": matches,
+        "summary": load_chatbot_package().get("summary", {}),
+    }
+
+
 def json_response(handler: BaseHTTPRequestHandler, status: int, payload: dict[str, Any]) -> None:
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     handler.send_response(status)
@@ -187,7 +321,16 @@ class AppHandler(BaseHTTPRequestHandler):
         if path == "/health":
             try:
                 package = load_model_package()
-                json_response(self, 200, {"ok": True, "model": package.get("best_model_name", "")})
+                chatbot_package = load_chatbot_package()
+                json_response(
+                    self,
+                    200,
+                    {
+                        "ok": True,
+                        "model": package.get("best_model_name", ""),
+                        "chatbot": chatbot_package.get("model_type", ""),
+                    },
+                )
             except Exception as exc:
                 json_response(self, 500, {"ok": False, "error": str(exc)})
             return
@@ -195,16 +338,22 @@ class AppHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         path = urlparse(self.path).path
-        if path != "/api/predict":
+        if path not in {"/api/predict", "/api/chat"}:
             json_response(self, 404, {"ok": False, "error": "Bulunamadı."})
             return
 
         try:
             length = int(self.headers.get("Content-Length", "0"))
             payload = json.loads(self.rfile.read(length).decode("utf-8") or "{}")
-            fields = payload.get("fields", {})
-            top_k = payload.get("top_k", 5)
-            result = predict(fields, top_k=top_k)
+            if path == "/api/predict":
+                fields = payload.get("fields", {})
+                top_k = payload.get("top_k", 5)
+                result = predict(fields, top_k=top_k)
+            else:
+                result = chatbot_reply(
+                    str(payload.get("message", "")),
+                    history=payload.get("history", []),
+                )
             json_response(self, 200, {"ok": True, "result": result})
         except Exception as exc:
             json_response(self, 400, {"ok": False, "error": str(exc)})
@@ -580,6 +729,99 @@ INDEX_HTML = r"""<!doctype html>
       line-height: 1.5;
     }
 
+    .chat-panel {
+      margin-top: 18px;
+    }
+
+    .chat-body {
+      display: grid;
+      gap: 14px;
+    }
+
+    .chat-messages {
+      min-height: 300px;
+      max-height: 460px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+    }
+
+    .chat-message {
+      max-width: min(720px, 88%);
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+      border-color: rgba(40, 95, 116, 0.28);
+      background: #eef7f9;
+    }
+
+    .chat-message.assistant {
+      align-self: flex-start;
+    }
+
+    .chat-meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chat-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chat-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chat-suggestions button {
+      min-height: 34px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .chat-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .chat-form textarea {
+      min-height: 72px;
+    }
+
     @media (max-width: 920px) {
       .layout {
         grid-template-columns: 1fr;
@@ -629,6 +871,14 @@ INDEX_HTML = r"""<!doctype html>
 
       .topk {
         justify-content: space-between;
+      }
+
+      .chat-form {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-message {
+        max-width: 100%;
       }
     }
   </style>
@@ -746,6 +996,31 @@ INDEX_HTML = r"""<!doctype html>
         </div>
       </aside>
     </section>
+
+    <section class="panel chat-panel" aria-labelledby="chat-title">
+      <div class="panel-header">
+        <h2 class="panel-title" id="chat-title">House M.D. Chatbot</h2>
+      </div>
+      <div class="panel-body chat-body">
+        <div class="chat-messages" id="chat-messages" aria-live="polite">
+          <div class="chat-message assistant">
+            Merhaba. Vaka metnini yaz; ben de benzer kayıtları ve olası tanı etiketlerini birlikte değerlendireyim.
+          </div>
+        </div>
+        <div class="chat-suggestions" id="chat-suggestions">
+          <button class="secondary" type="button">Hasta nöbet geçiriyor ve MR sonucunda beyinde lezyon görülüyor.</button>
+          <button class="secondary" type="button">Ateş, öksürük ve akciğer bulguları olan vakada ne öne çıkar?</button>
+          <button class="secondary" type="button">Böbrek yetmezliği ve ilaç kullanımı birlikte görülüyor.</button>
+        </div>
+        <form class="chat-form" id="chat-form">
+          <div class="field">
+            <label for="chat-input">Mesaj</label>
+            <textarea id="chat-input" placeholder="Semptom, test sonucu, organ veya kısa vaka hikayesi yazın."></textarea>
+          </div>
+          <button class="primary" type="submit" id="chat-send">Gönder</button>
+        </form>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -754,11 +1029,26 @@ INDEX_HTML = r"""<!doctype html>
     const metrics = document.querySelector("#metrics");
     const statusEl = document.querySelector("#status");
     const clearButton = document.querySelector("#clear");
+    const chatForm = document.querySelector("#chat-form");
+    const chatInput = document.querySelector("#chat-input");
+    const chatMessages = document.querySelector("#chat-messages");
+    const chatSuggestions = document.querySelector("#chat-suggestions");
+    const chatSend = document.querySelector("#chat-send");
+    const chatHistory = [];
 
     const fieldNames = [
       "text", "Symptom", "Test", "Drug", "Procedure", "Organ",
       "speaker", "Intent", "diagnosis_stage", "Emotion", "Sarcasm"
     ];
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
     function readFields() {
       return Object.fromEntries(fieldNames.map((name) => {
@@ -798,7 +1088,7 @@ INDEX_HTML = r"""<!doctype html>
         return `
           <div class="prediction ${index === 0 ? "best" : ""}">
             <div class="prediction-top">
-              <div class="prediction-name">${item.rank}. ${item.label}</div>
+              <div class="prediction-name">${item.rank}. ${escapeHtml(item.label)}</div>
               <div class="prediction-score">${item.percent.toFixed(2)}%</div>
             </div>
             <div class="bar" aria-label="${payload.score_label}: ${item.percent.toFixed(2)}%">
@@ -816,6 +1106,84 @@ INDEX_HTML = r"""<!doctype html>
         metric("Test satırı", summary.test_rows || "-"),
         metric("Seçilen model", payload.best_model_name ? "aktif" : "-")
       ].join("");
+    }
+
+    function setChatLoading(isLoading) {
+      chatSend.disabled = isLoading;
+      chatInput.disabled = isLoading;
+      chatSend.textContent = isLoading ? "Yazıyor" : "Gönder";
+    }
+
+    function appendChatMessage(role, content, payload = null) {
+      const message = document.createElement("div");
+      message.className = `chat-message ${role}`;
+      message.innerHTML = `<div>${escapeHtml(content)}</div>`;
+
+      if (payload && role === "assistant") {
+        const predictions = payload.predictions || [];
+        const matches = payload.matches || [];
+        const meta = document.createElement("div");
+        meta.className = "chat-meta";
+
+        if (predictions.length) {
+          const chips = predictions.map((item) => {
+            const percent = Number(item.percent || 0).toFixed(2);
+            return `<span class="chat-chip">${escapeHtml(item.label)} · %${percent}</span>`;
+          }).join("");
+          meta.innerHTML += `<div class="chat-chip-row">${chips}</div>`;
+        }
+
+        if (matches.length) {
+          const best = matches[0];
+          meta.innerHTML += `
+            <div>
+              En yakın kayıt: ${escapeHtml(best.episode || "-")}
+              · benzerlik %${Number(best.percent || 0).toFixed(2)}
+            </div>
+          `;
+        }
+
+        if (meta.innerHTML.trim()) {
+          message.appendChild(meta);
+        }
+      }
+
+      chatMessages.appendChild(message);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendChatMessage(message) {
+      const cleanMessage = message.trim();
+      if (!cleanMessage) {
+        return;
+      }
+
+      appendChatMessage("user", cleanMessage);
+      chatHistory.push({role: "user", content: cleanMessage});
+      chatInput.value = "";
+      setChatLoading(true);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            message: cleanMessage,
+            history: chatHistory.slice(-8)
+          })
+        });
+        const payload = await response.json();
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload.error || "Chatbot cevap veremedi.");
+        }
+        appendChatMessage("assistant", payload.result.reply, payload.result);
+        chatHistory.push({role: "assistant", content: payload.result.reply});
+      } catch (error) {
+        appendChatMessage("assistant", error.message);
+      } finally {
+        setChatLoading(false);
+        chatInput.focus();
+      }
     }
 
     form.addEventListener("submit", async (event) => {
@@ -849,6 +1217,26 @@ INDEX_HTML = r"""<!doctype html>
       metrics.hidden = true;
       metrics.innerHTML = "";
     });
+
+    chatForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await sendChatMessage(chatInput.value);
+    });
+
+    chatInput.addEventListener("keydown", async (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        await sendChatMessage(chatInput.value);
+      }
+    });
+
+    chatSuggestions.addEventListener("click", async (event) => {
+      const button = event.target.closest("button");
+      if (!button) {
+        return;
+      }
+      await sendChatMessage(button.textContent || "");
+    });
   </script>
 </body>
 </html>
@@ -857,6 +1245,7 @@ INDEX_HTML = r"""<!doctype html>
 
 def run() -> None:
     load_model_package()
+    load_chatbot_package()
     server = ThreadingHTTPServer((HOST, PORT), AppHandler)
     print(f"House M.D. NLP arayüzü: http://{HOST}:{PORT}")
     server.serve_forever()
