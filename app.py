@@ -169,7 +169,7 @@ def predict(fields: dict[str, Any], top_k: int = 5) -> dict[str, Any]:
     }
 
 
-def compact_text(value: Any, limit: int = 220) -> str:
+def compact_text(value: Any, limit: int = 120) -> str:
     text = str(value or "").strip()
     if len(text) <= limit:
         return text
@@ -180,60 +180,66 @@ def build_chat_query(message: str, history: list[dict[str, Any]] | None = None) 
     history = history if isinstance(history, list) else []
     user_turns = [
         str(item.get("content", ""))
-        for item in history[-CHAT_HISTORY_LIMIT:]
+        for item in history[-2:]
         if item.get("role") == "user" and str(item.get("content", "")).strip()
     ]
-    return normalize_text(" ".join([*user_turns, message]))
+    combined = " ".join([*user_turns, message])
+    return normalize_text(combined)
 
 
 def is_greeting(query: str) -> bool:
-    greetings = {"merhaba", "selam", "selamlar", "hello", "hi", "hey"}
-    return query in greetings or query.startswith("merhaba ") or query.startswith("selam ")
+    greetings = {"merhaba", "selam", "selamlar", "hello", "hi", "hey", "merhaba", "alo", "hoş"}
+    return any(query.startswith(g) for g in greetings) or query in greetings
 
 
 def is_help_request(query: str) -> bool:
-    return any(phrase in query for phrase in ["ne yapabilirsin", "nasıl kullan", "yardım", "help"])
+    keywords = {"ne yapabilirsin", "nasıl kullan", "yardım", "help", "ne yapabilir", "nasıl"}
+    return any(kw in query for kw in keywords)
 
 
 def record_highlights(record: dict[str, Any]) -> str:
-    labels = [
-        ("semptom", record.get("symptom")),
-        ("test", record.get("test")),
-        ("ilaç", record.get("drug")),
-        ("prosedür", record.get("procedure")),
-        ("organ", record.get("organ")),
-    ]
-    parts = [f"{label}: {value}" for label, value in labels if value]
-    return "; ".join(parts[:3]) or compact_text(record.get("text", ""), 160)
+    parts = []
+    if record.get("symptom"):
+        parts.append(f"Semptom: {record.get('symptom')}")
+    if record.get("test"):
+        parts.append(f"Test: {record.get('test')}")
+    if record.get("organ"):
+        parts.append(f"Organ: {record.get('organ')}")
+    return " | ".join(parts) or compact_text(record.get("text", ""), 100)
 
 
 def retrieve_chat_matches(query: str, top_k: int = 3) -> list[dict[str, Any]]:
     package = load_chatbot_package()
     records = package.get("records", [])
-    if not records:
+    if not records or not query.strip():
         return []
 
     vectorizer = package["vectorizer"]
     neighbors = package["neighbors"]
-    query_vector = vectorizer.transform([query])
-    count = max(1, min(top_k, len(records)))
-    distances, indices = neighbors.kneighbors(query_vector, n_neighbors=count)
+    
+    try:
+        query_vector = vectorizer.transform([query])
+        count = max(1, min(top_k, len(records)))
+        distances, indices = neighbors.kneighbors(query_vector, n_neighbors=count)
 
-    matches: list[dict[str, Any]] = []
-    for distance, record_index in zip(distances[0], indices[0]):
-        record = records[int(record_index)]
-        similarity = max(0.0, 1.0 - float(distance))
-        matches.append(
-            {
-                "label": str(record.get("label", "")),
-                "text": compact_text(record.get("text", ""), 220),
-                "highlights": record_highlights(record),
-                "episode": f"S{record.get('season', '?')}E{record.get('episode', '?')}",
-                "similarity": round(similarity, 4),
-                "percent": round(similarity * 100, 2),
-            }
-        )
-    return matches
+        matches: list[dict[str, Any]] = []
+        for distance, record_index in zip(distances[0], indices[0]):
+            record = records[int(record_index)]
+            similarity = max(0.0, 1.0 - float(distance))
+            if similarity > 0.01:
+                matches.append(
+                    {
+                        "label": str(record.get("label", "")),
+                        "text": compact_text(record.get("text", ""), 220),
+                        "highlights": record_highlights(record),
+                        "episode": f"S{record.get('season', '?')}E{record.get('episode', '?')}",
+                        "similarity": round(similarity, 4),
+                        "percent": round(similarity * 100, 2),
+                    }
+                )
+        return matches
+    except Exception:
+        return []
 
 
 def chatbot_reply(message: str, history: list[dict[str, Any]] | None = None) -> dict[str, Any]:
@@ -246,7 +252,7 @@ def chatbot_reply(message: str, history: list[dict[str, Any]] | None = None) -> 
 
     if is_greeting(query):
         return {
-            "reply": "Merhaba. Bana vaka metnini, semptomları, testleri veya şüphelendiğin tanıyı yazabilirsin; ben de veri setindeki benzer House M.D. vakalarıyla birlikte tanı modelinin öne çıkardığı etiketi söylerim.",
+            "reply": "Merhaba! Vaka semptomları, testleri veya organlarını yazabilirsin; ben de benzer House M.D. vakalarını bulup olası tanıları gösterebilirim.",
             "predictions": [],
             "matches": [],
             "summary": load_chatbot_package().get("summary", {}),
@@ -254,7 +260,7 @@ def chatbot_reply(message: str, history: list[dict[str, Any]] | None = None) -> 
 
     if is_help_request(query):
         return {
-            "reply": "Kısa bir vaka anlatımı yazman yeterli: semptom, organ, test sonucu, kullanılan ilaç veya prosedür gibi ayrıntılar benzer vaka bulmayı güçlendirir. Cevaplar eğitim amaçlıdır.",
+            "reply": "Semptom, test, ilaç, prosedür veya organ adlarını ekle (örn: 'nöbet + beyin MR'). Ne kadar ayrıntı eklersen, bulduğum benzer vakalar o kadar iyi olur.",
             "predictions": [],
             "matches": [],
             "summary": load_chatbot_package().get("summary", {}),
@@ -267,24 +273,19 @@ def chatbot_reply(message: str, history: list[dict[str, Any]] | None = None) -> 
     best_label = best.get("label", "belirsiz")
     best_percent = best.get("percent", 0)
     best_match = matches[0] if matches else {}
+    
+    similarity = best_match.get("similarity", 0)
 
-    if best_match and best_match.get("similarity", 0) >= 0.08:
+    if best_match and similarity >= 0.15:
         evidence = best_match.get("highlights") or best_match.get("text")
-        reply = (
-            f"Bu vaka için tanı modelinin en güçlü etiketi {best_label} "
-            f"(yaklaşık %{best_percent:.2f}). Veri setindeki en yakın örnek "
-            f"{best_match.get('episode', '')} kaydından geliyor; öne çıkan ipuçları: {evidence}. "
-            "Daha net bir cevap için semptom, test ve organ bilgisini ayrı ayrı yazabilirsin."
-        )
+        reply = f"✓ {best_label} (%{best_percent:.0f}) • Benzer: {best_match.get('episode', '')} – {evidence}"
+    elif similarity > 0.08:
+        reply = f"~ {best_label} (%{best_percent:.0f}) • Zayıf benzerlik – daha ayrıntı ekle"
     else:
-        reply = (
-            f"Bu mesaj veri setindeki örneklerle zayıf eşleşti, ama tanı modeli yine de "
-            f"{best_label} etiketini öne çıkarıyor (yaklaşık %{best_percent:.2f}). "
-            "Daha klinik ayrıntı eklersen benzer vaka araması daha anlamlı olur."
-        )
+        reply = f"? {best_label} (%{best_percent:.0f}) • Benzer vaka yok"
 
     return {
-        "reply": reply + " Bu çıktı gerçek klinik öneri değildir.",
+        "reply": reply,
         "predictions": predictions,
         "matches": matches,
         "summary": load_chatbot_package().get("summary", {}),
@@ -1004,13 +1005,13 @@ INDEX_HTML = r"""<!doctype html>
       <div class="panel-body chat-body">
         <div class="chat-messages" id="chat-messages" aria-live="polite">
           <div class="chat-message assistant">
-            Merhaba. Vaka metnini yaz; ben de benzer kayıtları ve olası tanı etiketlerini birlikte değerlendireyim.
+            Vaka semptomlarını kısaca yaz (ör: "nöbet + beyin" veya "ateş + öksürük"). Ben de benzer House M.D. vakalarını ve olası tanıları gösteririm. 🏥
           </div>
         </div>
         <div class="chat-suggestions" id="chat-suggestions">
-          <button class="secondary" type="button">Hasta nöbet geçiriyor ve MR sonucunda beyinde lezyon görülüyor.</button>
-          <button class="secondary" type="button">Ateş, öksürük ve akciğer bulguları olan vakada ne öne çıkar?</button>
-          <button class="secondary" type="button">Böbrek yetmezliği ve ilaç kullanımı birlikte görülüyor.</button>
+          <button class="secondary" type="button">hasta nöbet geçiriyor ve beyinde lezyon var</button>
+          <button class="secondary" type="button">ateş öksürük ve akciğer bulguları</button>
+          <button class="secondary" type="button">böbrek yetmezliği ve ilaç kullanımı</button>
         </div>
         <form class="chat-form" id="chat-form">
           <div class="field">
