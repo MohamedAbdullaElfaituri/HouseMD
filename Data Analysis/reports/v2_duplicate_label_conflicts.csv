@@ -1,0 +1,22 @@
+norm_text,task,labels,count,rows,sample_text
+akciğerlerde hemorajik ülserler var,intent,açıklama | tanı,2,4749 | 5059,Akciğerlerde hemorajik ülserler var.
+akciğerlerde hemorajik ülserler var,emotion,ciddi | kaygı,2,4749 | 5059,Akciğerlerde hemorajik ülserler var.
+akciğerlerde hemorajik ülserler var,diagnosis_stage,başlangıç | kesin_tanı,2,4749 | 5059,Akciğerlerde hemorajik ülserler var.
+bacağım ağrıyor,emotion,ciddi | nötr,2,5739 | 6571,Bacağım ağrıyor.
+bacağım ağrıyor,diagnosis_stage,diğer | hipotez,2,5739 | 6571,Bacağım ağrıyor.
+bakteriyel menenjit olabilir,intent,hipotez | tanı,2,3131 | 4011,Bakteriyel menenjit olabilir.
+bakteriyel menenjit olabilir,emotion,ciddi | nötr,2,3131 | 4011,Bakteriyel menenjit olabilir.
+bence hiperviskozite sendromu olabilir,emotion,alaycı | diğer,2,7151 | 7153,Bence hiperviskozite sendromu olabilir.
+biyopsi sonucu negatif,intent,açıklama | test,2,1865 | 4785,Biyopsi sonucu negatif.
+defibrilasyon uygulandı,intent,tedavi | uyarı,2,1503 | 4776,Defibrilasyon uygulandı.
+defibrilasyon uygulandı,diagnosis_stage,başlangıç | tedavi,2,1503 | 4776,Defibrilasyon uygulandı.
+göz bebekleri büyümüş bir narkotiğin etkisi altında görünüyor,emotion,alaycı | ciddi,2,2185 | 2238,"Göz bebekleri büyümüş,"" bir narkotiğin etkisi altında görünüyor."
+halüsinasyon görüyor,intent,açıklama | tanı,2,4725 | 5507,Halüsinasyon görüyor.
+halüsinasyon görüyor,emotion,ciddi | nötr,2,4725 | 5507,Halüsinasyon görüyor.
+halüsinasyon görüyor,diagnosis_stage,değerlendirme | kesin_tanı,2,4725 | 5507,Halüsinasyon görüyor.
+hasta nefes almakta zorlandı,intent,açıklama | tanı,2,1033 | 1533,Hasta nefes almakta zorlandı.
+hasta nefes almakta zorlandı,emotion,ciddi | nötr,2,1033 | 1533,Hasta nefes almakta zorlandı.
+pıhtılaşma bozukluğu olabilir,intent,hipotez | tanı,2,914 | 4212,Pıhtılaşma bozukluğu olabilir.
+sarkoidoz olabilir,diagnosis_stage,hipotez | kesin_tanı,2,1398 | 4763,Sarkoidoz olabilir.
+sıvıyı parasentez ile boşaltın,intent,diğer | tedavi,2,4996 | 5098,"""Sıvıyı parasentez ile boşaltın."""
+sıvıyı parasentez ile boşaltın,diagnosis_stage,başlangıç | tedavi,2,4996 | 5098,"""Sıvıyı parasentez ile boşaltın."""

@@ -1,0 +1,161 @@
+{
+  "split_family": "score",
+  "best_variant": {
+    "variant": "feature_text_soft_vote",
+    "macro_f1_avg": 0.39151390427326627,
+    "weighted_f1_avg": 0.5354151627142438,
+    "accuracy_avg": 0.5217524509803922
+  },
+  "task_results": [
+    {
+      "variant": "taxonomy_v2_text",
+      "task": "intent",
+      "macro_f1": 0.31354923164895576,
+      "weighted_f1": 0.5369948153516398,
+      "accuracy": 0.5248161764705882,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 10
+    },
+    {
+      "variant": "taxonomy_v2_text",
+      "task": "emotion",
+      "macro_f1": 0.21414394118050095,
+      "weighted_f1": 0.4348276707179553,
+      "accuracy": 0.42003676470588236,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 8
+    },
+    {
+      "variant": "taxonomy_v2_text",
+      "task": "diagnosis_stage",
+      "macro_f1": 0.38288344406445834,
+      "weighted_f1": 0.4050544202169557,
+      "accuracy": 0.40349264705882354,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 7
+    },
+    {
+      "variant": "feature_text",
+      "task": "intent",
+      "macro_f1": 0.2959913757300501,
+      "weighted_f1": 0.4860587137196242,
+      "accuracy": 0.4650735294117647,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 10
+    },
+    {
+      "variant": "feature_text",
+      "task": "emotion",
+      "macro_f1": 0.3174332619265484,
+      "weighted_f1": 0.6170539893236693,
+      "accuracy": 0.6038602941176471,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 8
+    },
+    {
+      "variant": "feature_text",
+      "task": "diagnosis_stage",
+      "macro_f1": 0.5272945676013148,
+      "weighted_f1": 0.5236055141807293,
+      "accuracy": 0.5238970588235294,
+      "train_rows": 6157,
+      "test_rows": 1088,
+      "labels": 7
+    },
+    {
+      "variant": "feature_text_sampled",
+      "task": "intent",
+      "macro_f1": 0.2984996420304419,
+      "weighted_f1": 0.45944895186146456,
+      "accuracy": 0.43566176470588236,
+      "train_rows": 6709,
+      "test_rows": 1088,
+      "labels": 10
+    },
+    {
+      "variant": "feature_text_sampled",
+      "task": "emotion",
+      "macro_f1": 0.31989983713003056,
+      "weighted_f1": 0.5928313000990002,
+      "accuracy": 0.5698529411764706,
+      "train_rows": 6245,
+      "test_rows": 1088,
+      "labels": 8
+    },
+    {
+      "variant": "feature_text_sampled",
+      "task": "diagnosis_stage",
+      "macro_f1": 0.5281453447543157,
+      "weighted_f1": 0.5240852403772065,
+      "accuracy": 0.5248161764705882,
+      "train_rows": 6387,
+      "test_rows": 1088,
+      "labels": 7
+    },
+    {
+      "variant": "feature_text_sampled_augmented",
+      "task": "intent",
+      "macro_f1": 0.29518405311776663,
+      "weighted_f1": 0.4578225697122118,
+      "accuracy": 0.43566176470588236,
+      "train_rows": 7494,
+      "test_rows": 1088,
+      "labels": 10
+    },
+    {
+      "variant": "feature_text_sampled_augmented",
+      "task": "emotion",
+      "macro_f1": 0.32186335969969565,
+      "weighted_f1": 0.5947018271916825,
+      "accuracy": 0.5735294117647058,
+      "train_rows": 7195,
+      "test_rows": 1088,
+      "labels": 8
+    },
+    {
+      "variant": "feature_text_sampled_augmented",
+      "task": "diagnosis_stage",
+      "macro_f1": 0.5267728906399793,
+      "weighted_f1": 0.5255661248431273,
+      "accuracy": 0.5266544117647058,
+      "train_rows": 8204,
+      "test_rows": 1088,
+      "labels": 7
+    },
+    {
+      "variant": "feature_text_soft_vote",
+      "task": "intent",
+      "macro_f1": 0.31433320068485904,
+      "weighted_f1": 0.4728274960720453,
+      "accuracy": 0.45036764705882354,
+      "train_rows": 7494,
+      "test_rows": 1088,
+      "labels": 10
+    },
+    {
+      "variant": "feature_text_soft_vote",
+      "task": "emotion",
+      "macro_f1": 0.3409747034444347,
+      "weighted_f1": 0.6108449373968179,
+      "accuracy": 0.5909926470588235,
+      "train_rows": 7195,
+      "test_rows": 1088,
+      "labels": 8
+    },
+    {
+      "variant": "feature_text_soft_vote",
+      "task": "diagnosis_stage",
+      "macro_f1": 0.519233808690505,
+      "weighted_f1": 0.5225730546738683,
+      "accuracy": 0.5238970588235294,
+      "train_rows": 8204,
+      "test_rows": 1088,
+      "labels": 7
+    }
+  ]
+}

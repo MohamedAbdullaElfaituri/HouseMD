@@ -1,0 +1,489 @@
+row_id,column,issue,action
+,Symptom,mixed-case column name,renamed → symptom
+,Test,mixed-case column name,renamed → test
+,Drug,mixed-case column name,renamed → drug
+,Procedure,mixed-case column name,renamed → procedure
+,Intent,mixed-case column name,renamed → intent
+,Sarcasm,mixed-case column name,renamed → sarcasm
+,Emotion,mixed-case column name,renamed → emotion
+,Organ,mixed-case column name,renamed → organ
+6256.0,season,"non-numeric value: '7;9;Chase;bayılma;;;;açıklama;yok;1;alaycı;;suçiçeği;;""Savaş ya da kaç\' olduğunu sanıyordum; \'savaş,"" kaç ya da bayıl\' olduğunu bilmiyordum.""""'",coerced to NaN
+6265.0,season,"non-numeric value: '7;9;Masters;aritmi;;;;açıklama;değerlendirme;0;emin;kalp;suçiçeği;;""Aritmi haklı olduğumu kanıtlıyor; sorun beyninde değil kalbinde."";[{\'text\': \'aritmi\', \'type\': \'Symptom\'}, {\'text\': \'kalp\', \'type\': \'Anatomy\'}]'",coerced to NaN
+6287.0,season,"non-numeric value: '7;9;Foreman;tümör;;;;hipotez;değerlendirme;0;nötr;beyin;suçiçeği;;""Kulakta bir tümör; solunum merkezlerine baskı yapıyorsa akciğeri açıklar."";[{\'text\': \'tümör\', \'type\': \'Disease\'}]'",coerced to NaN
+6297.0,season,"non-numeric value: '7;9;House;suçiçeği;;gama globülin;;açıklama;kesin_tanı;0;nötr;deri;suçiçeği;;""Jack suçiçeği geçiriyor; yetişkinler için çok kötü bir durum."";[{\'text\': \'suçiçeği\', \'type\': \'Disease\'}]'",coerced to NaN
+6327.0,season,"non-numeric value: '7;10;Taub;mastositoz;;;;hipotez;yok;0;nötr;;klor zehirlenmesi;;""Taşikardi humoral bir etki olabilir; mastositoz."";[{\'text\': \'mastositoz\', \'type\': \'Disease\'}]'",coerced to NaN
+6355.0,season,"non-numeric value: '7;11;House;iskemi;treadmill testi;;;açıklama;test;0;nötr;kalp;kobalt zehirlenmesi;;""Koşu bandı testi iyi geçti; göğüs rahatsızlığı veya iskemi yok."";[{\'text\': \'iskemi\', \'type\': \'Symptom\'}, {\'text\': \'treadmill testi\', \'type\': \'Test\'}]'",coerced to NaN
+6374.0,season,"non-numeric value: '7;11;Masters;doz aşımı;toksikoloji taraması;fenobarbital;;açıklama;test;0;nötr;;kobalt zehirlenmesi;;""Sabit ve dilate pupiller; yanında boş bir fenobarbital şişesiyle bulunmuş."";[{\'text\': \'fenobarbital\', \'type\': \'Drug\'}]'",coerced to NaN
+6256.0,episode,"non-numeric value: '[{\'text\': \'bayılma\'"", \'type\': \'Symptom\'}]'",coerced to NaN
+2990.0,sarcasm,non-binary value: 'emin',coerced to 0
+3817.0,sarcasm,non-binary value: 'tüm vücut',coerced to 0
+4075.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4076.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4077.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4078.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4079.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4080.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4081.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4082.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4083.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4084.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4085.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4086.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4087.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4088.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4089.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4090.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4091.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4092.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4093.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4094.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4095.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4096.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4097.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4098.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4099.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4100.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4101.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4102.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4103.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4104.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4105.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4106.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4107.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4108.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4109.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4110.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4111.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4112.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4113.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4114.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4115.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4116.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4117.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4118.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4119.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4120.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4121.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4122.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4123.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4124.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4125.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4126.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4127.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4128.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4129.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4130.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4131.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4132.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4133.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4134.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4135.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4136.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4137.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4138.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4139.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4140.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4141.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4142.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4143.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4144.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4145.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4146.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4147.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4148.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4149.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4150.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4151.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4152.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4153.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4154.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4155.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4156.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4157.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4158.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4159.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4160.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4161.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4162.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4163.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4164.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4165.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4166.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4167.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4168.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4169.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4170.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4171.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4172.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4173.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4174.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4175.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4176.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4177.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4178.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4179.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4180.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4181.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4182.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4183.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4184.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4185.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4186.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4187.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4188.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4189.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4190.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4191.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4192.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4193.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4194.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4195.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4196.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4197.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4198.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4199.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4200.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4201.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4202.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4203.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4204.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4205.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4206.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4207.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4208.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4209.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4210.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4211.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4212.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4213.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4214.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4215.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4216.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4217.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4218.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4219.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4220.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4221.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4222.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4223.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4224.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4225.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4226.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4227.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4228.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4229.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4230.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4231.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4232.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4233.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4234.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4235.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4236.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4237.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4238.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4239.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4240.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4241.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4242.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4243.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4244.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4245.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4246.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4247.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4248.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4249.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4250.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4251.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4252.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4253.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4254.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4255.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4256.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4257.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4258.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4259.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4260.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+4261.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4262.0,sarcasm,non-binary value: 'hayır',coerced to 0
+4263.0,sarcasm,non-binary value: 'alaycı',coerced to 0
+5442.0,sarcasm,"non-binary value: '-0,""003527142'",coerced to 0
+5443.0,sarcasm,"non-binary value: '-0,003945646'",coerced to 0
+,emotion,unmapped label value: 'uyarıcı' (8×),"kept as-is, needs YAML entry"
+,emotion,unmapped label value: 'etkilenmiş' (1×),"kept as-is, needs YAML entry"
+32.0,medical_entities,JSON parse failure,set to []
+33.0,medical_entities,JSON parse failure,set to []
+46.0,medical_entities,JSON parse failure,set to []
+49.0,medical_entities,JSON parse failure,set to []
+59.0,medical_entities,JSON parse failure,set to []
+62.0,medical_entities,JSON parse failure,set to []
+63.0,medical_entities,JSON parse failure,set to []
+69.0,medical_entities,JSON parse failure,set to []
+73.0,medical_entities,JSON parse failure,set to []
+91.0,medical_entities,JSON parse failure,set to []
+92.0,medical_entities,JSON parse failure,set to []
+94.0,medical_entities,JSON parse failure,set to []
+100.0,medical_entities,JSON parse failure,set to []
+108.0,medical_entities,JSON parse failure,set to []
+112.0,medical_entities,JSON parse failure,set to []
+127.0,medical_entities,JSON parse failure,set to []
+129.0,medical_entities,JSON parse failure,set to []
+139.0,medical_entities,JSON parse failure,set to []
+143.0,medical_entities,JSON parse failure,set to []
+149.0,medical_entities,JSON parse failure,set to []
+222.0,medical_entities,JSON parse failure,set to []
+349.0,medical_entities,JSON parse failure,set to []
+384.0,medical_entities,JSON parse failure,set to []
+396.0,medical_entities,JSON parse failure,set to []
+656.0,medical_entities,JSON parse failure,set to []
+670.0,medical_entities,JSON parse failure,set to []
+673.0,medical_entities,JSON parse failure,set to []
+696.0,medical_entities,JSON parse failure,set to []
+700.0,medical_entities,JSON parse failure,set to []
+723.0,medical_entities,JSON parse failure,set to []
+734.0,medical_entities,JSON parse failure,set to []
+746.0,medical_entities,JSON parse failure,set to []
+765.0,medical_entities,JSON parse failure,set to []
+768.0,medical_entities,JSON parse failure,set to []
+769.0,medical_entities,JSON parse failure,set to []
+773.0,medical_entities,JSON parse failure,set to []
+774.0,medical_entities,JSON parse failure,set to []
+777.0,medical_entities,JSON parse failure,set to []
+780.0,medical_entities,JSON parse failure,set to []
+784.0,medical_entities,JSON parse failure,set to []
+788.0,medical_entities,JSON parse failure,set to []
+795.0,medical_entities,JSON parse failure,set to []
+799.0,medical_entities,JSON parse failure,set to []
+802.0,medical_entities,JSON parse failure,set to []
+807.0,medical_entities,JSON parse failure,set to []
+1093.0,medical_entities,JSON parse failure,set to []
+1101.0,medical_entities,JSON parse failure,set to []
+1103.0,medical_entities,JSON parse failure,set to []
+1104.0,medical_entities,JSON parse failure,set to []
+1108.0,medical_entities,JSON parse failure,set to []
+1116.0,medical_entities,JSON parse failure,set to []
+1118.0,medical_entities,JSON parse failure,set to []
+1125.0,medical_entities,JSON parse failure,set to []
+1128.0,medical_entities,JSON parse failure,set to []
+1140.0,medical_entities,JSON parse failure,set to []
+1142.0,medical_entities,JSON parse failure,set to []
+1149.0,medical_entities,JSON parse failure,set to []
+1168.0,medical_entities,JSON parse failure,set to []
+1172.0,medical_entities,JSON parse failure,set to []
+1176.0,medical_entities,JSON parse failure,set to []
+1192.0,medical_entities,JSON parse failure,set to []
+1193.0,medical_entities,JSON parse failure,set to []
+1194.0,medical_entities,JSON parse failure,set to []
+1195.0,medical_entities,JSON parse failure,set to []
+1197.0,medical_entities,JSON parse failure,set to []
+1201.0,medical_entities,JSON parse failure,set to []
+1203.0,medical_entities,JSON parse failure,set to []
+1204.0,medical_entities,JSON parse failure,set to []
+1205.0,medical_entities,JSON parse failure,set to []
+1207.0,medical_entities,JSON parse failure,set to []
+1211.0,medical_entities,JSON parse failure,set to []
+1212.0,medical_entities,JSON parse failure,set to []
+1214.0,medical_entities,JSON parse failure,set to []
+1216.0,medical_entities,JSON parse failure,set to []
+1217.0,medical_entities,JSON parse failure,set to []
+1221.0,medical_entities,JSON parse failure,set to []
+1224.0,medical_entities,JSON parse failure,set to []
+1225.0,medical_entities,JSON parse failure,set to []
+1226.0,medical_entities,JSON parse failure,set to []
+1227.0,medical_entities,JSON parse failure,set to []
+1317.0,medical_entities,JSON parse failure,set to []
+1380.0,medical_entities,JSON parse failure,set to []
+1387.0,medical_entities,JSON parse failure,set to []
+1392.0,medical_entities,JSON parse failure,set to []
+1423.0,medical_entities,JSON parse failure,set to []
+1444.0,medical_entities,JSON parse failure,set to []
+1842.0,medical_entities,JSON parse failure,set to []
+1852.0,medical_entities,JSON parse failure,set to []
+1881.0,medical_entities,JSON parse failure,set to []
+1920.0,medical_entities,JSON parse failure,set to []
+1930.0,medical_entities,JSON parse failure,set to []
+1931.0,medical_entities,JSON parse failure,set to []
+1944.0,medical_entities,JSON parse failure,set to []
+1956.0,medical_entities,JSON parse failure,set to []
+1959.0,medical_entities,JSON parse failure,set to []
+1965.0,medical_entities,JSON parse failure,set to []
+1967.0,medical_entities,JSON parse failure,set to []
+1968.0,medical_entities,JSON parse failure,set to []
+1969.0,medical_entities,JSON parse failure,set to []
+1975.0,medical_entities,JSON parse failure,set to []
+1989.0,medical_entities,JSON parse failure,set to []
+1997.0,medical_entities,JSON parse failure,set to []
+2000.0,medical_entities,JSON parse failure,set to []
+2001.0,medical_entities,JSON parse failure,set to []
+2021.0,medical_entities,JSON parse failure,set to []
+2029.0,medical_entities,JSON parse failure,set to []
+2035.0,medical_entities,JSON parse failure,set to []
+2038.0,medical_entities,JSON parse failure,set to []
+2040.0,medical_entities,JSON parse failure,set to []
+2044.0,medical_entities,JSON parse failure,set to []
+2098.0,medical_entities,JSON parse failure,set to []
+2104.0,medical_entities,JSON parse failure,set to []
+2134.0,medical_entities,JSON parse failure,set to []
+2140.0,medical_entities,JSON parse failure,set to []
+2311.0,medical_entities,JSON parse failure,set to []
+2354.0,medical_entities,JSON parse failure,set to []
+2380.0,medical_entities,JSON parse failure,set to []
+2392.0,medical_entities,JSON parse failure,set to []
+2408.0,medical_entities,JSON parse failure,set to []
+2411.0,medical_entities,JSON parse failure,set to []
+2414.0,medical_entities,JSON parse failure,set to []
+2416.0,medical_entities,JSON parse failure,set to []
+2554.0,medical_entities,JSON parse failure,set to []
+2607.0,medical_entities,JSON parse failure,set to []
+2740.0,medical_entities,JSON parse failure,set to []
+2744.0,medical_entities,JSON parse failure,set to []
+2751.0,medical_entities,JSON parse failure,set to []
+2786.0,medical_entities,JSON parse failure,set to []
+2844.0,medical_entities,JSON parse failure,set to []
+2905.0,medical_entities,JSON parse failure,set to []
+3071.0,medical_entities,JSON parse failure,set to []
+3105.0,medical_entities,JSON parse failure,set to []
+3116.0,medical_entities,JSON parse failure,set to []
+3122.0,medical_entities,JSON parse failure,set to []
+3143.0,medical_entities,JSON parse failure,set to []
+3174.0,medical_entities,JSON parse failure,set to []
+3182.0,medical_entities,JSON parse failure,set to []
+3412.0,medical_entities,JSON parse failure,set to []
+3413.0,medical_entities,JSON parse failure,set to []
+3414.0,medical_entities,JSON parse failure,set to []
+3415.0,medical_entities,JSON parse failure,set to []
+3416.0,medical_entities,JSON parse failure,set to []
+3417.0,medical_entities,JSON parse failure,set to []
+3418.0,medical_entities,JSON parse failure,set to []
+3419.0,medical_entities,JSON parse failure,set to []
+3420.0,medical_entities,JSON parse failure,set to []
+3421.0,medical_entities,JSON parse failure,set to []
+3422.0,medical_entities,JSON parse failure,set to []
+3423.0,medical_entities,JSON parse failure,set to []
+3424.0,medical_entities,JSON parse failure,set to []
+3425.0,medical_entities,JSON parse failure,set to []
+3426.0,medical_entities,JSON parse failure,set to []
+3427.0,medical_entities,JSON parse failure,set to []
+3428.0,medical_entities,JSON parse failure,set to []
+3429.0,medical_entities,JSON parse failure,set to []
+3430.0,medical_entities,JSON parse failure,set to []
+3431.0,medical_entities,JSON parse failure,set to []
+3432.0,medical_entities,JSON parse failure,set to []
+3433.0,medical_entities,JSON parse failure,set to []
+3434.0,medical_entities,JSON parse failure,set to []
+3435.0,medical_entities,JSON parse failure,set to []
+3436.0,medical_entities,JSON parse failure,set to []
+3437.0,medical_entities,JSON parse failure,set to []
+3438.0,medical_entities,JSON parse failure,set to []
+3439.0,medical_entities,JSON parse failure,set to []
+3440.0,medical_entities,JSON parse failure,set to []
+3441.0,medical_entities,JSON parse failure,set to []
+3442.0,medical_entities,JSON parse failure,set to []
+3443.0,medical_entities,JSON parse failure,set to []
+3444.0,medical_entities,JSON parse failure,set to []
+3445.0,medical_entities,JSON parse failure,set to []
+3446.0,medical_entities,JSON parse failure,set to []
+3447.0,medical_entities,JSON parse failure,set to []
+3448.0,medical_entities,JSON parse failure,set to []
+3449.0,medical_entities,JSON parse failure,set to []
+3450.0,medical_entities,JSON parse failure,set to []
+3451.0,medical_entities,JSON parse failure,set to []
+3452.0,medical_entities,JSON parse failure,set to []
+3453.0,medical_entities,JSON parse failure,set to []
+3454.0,medical_entities,JSON parse failure,set to []
+3455.0,medical_entities,JSON parse failure,set to []
+3456.0,medical_entities,JSON parse failure,set to []
+3457.0,medical_entities,JSON parse failure,set to []
+3458.0,medical_entities,JSON parse failure,set to []
+3459.0,medical_entities,JSON parse failure,set to []
+3460.0,medical_entities,JSON parse failure,set to []
+3461.0,medical_entities,JSON parse failure,set to []
+3462.0,medical_entities,JSON parse failure,set to []
+3463.0,medical_entities,JSON parse failure,set to []
+3464.0,medical_entities,JSON parse failure,set to []
+3465.0,medical_entities,JSON parse failure,set to []
+3466.0,medical_entities,JSON parse failure,set to []
+3467.0,medical_entities,JSON parse failure,set to []
+3468.0,medical_entities,JSON parse failure,set to []
+3469.0,medical_entities,JSON parse failure,set to []
+3470.0,medical_entities,JSON parse failure,set to []
+3471.0,medical_entities,JSON parse failure,set to []
+3472.0,medical_entities,JSON parse failure,set to []
+3473.0,medical_entities,JSON parse failure,set to []
+3474.0,medical_entities,JSON parse failure,set to []
+3475.0,medical_entities,JSON parse failure,set to []
+3588.0,medical_entities,JSON parse failure,set to []
+3623.0,medical_entities,JSON parse failure,set to []
+3694.0,medical_entities,JSON parse failure,set to []
+3826.0,medical_entities,JSON parse failure,set to []
+3831.0,medical_entities,JSON parse failure,set to []
+3840.0,medical_entities,JSON parse failure,set to []
+3844.0,medical_entities,JSON parse failure,set to []
+3852.0,medical_entities,JSON parse failure,set to []
+3861.0,medical_entities,JSON parse failure,set to []
+4088.0,medical_entities,JSON parse failure,set to []
+4189.0,medical_entities,JSON parse failure,set to []
+4276.0,medical_entities,JSON parse failure,set to []
+5257.0,medical_entities,JSON parse failure,set to []
+5334.0,medical_entities,JSON parse failure,set to []
+5373.0,medical_entities,JSON parse failure,set to []
+5383.0,medical_entities,JSON parse failure,set to []
+5393.0,medical_entities,JSON parse failure,set to []
+5581.0,medical_entities,JSON parse failure,set to []
+5589.0,medical_entities,JSON parse failure,set to []
+5968.0,medical_entities,JSON parse failure,set to []
+6057.0,medical_entities,JSON parse failure,set to []
+6162.0,medical_entities,JSON parse failure,set to []
+6182.0,medical_entities,JSON parse failure,set to []
+6249.0,medical_entities,JSON parse failure,set to []
+6613.0,medical_entities,JSON parse failure,set to []
+6614.0,medical_entities,JSON parse failure,set to []
+6634.0,medical_entities,JSON parse failure,set to []
+6640.0,medical_entities,JSON parse failure,set to []
+6900.0,medical_entities,JSON parse failure,set to []
+6904.0,medical_entities,JSON parse failure,set to []
+6951.0,medical_entities,JSON parse failure,set to []
+6958.0,medical_entities,JSON parse failure,set to []
+6982.0,medical_entities,JSON parse failure,set to []
+6983.0,medical_entities,JSON parse failure,set to []
+7038.0,medical_entities,JSON parse failure,set to []
+7068.0,medical_entities,JSON parse failure,set to []
+7070.0,medical_entities,JSON parse failure,set to []
+7095.0,medical_entities,JSON parse failure,set to []
+3817.0,text,empty text,row dropped
+6256.0,text,empty text,row dropped
+6265.0,text,empty text,row dropped
+6287.0,text,empty text,row dropped
+6297.0,text,empty text,row dropped
+6327.0,text,empty text,row dropped
+6355.0,text,empty text,row dropped
+6374.0,text,empty text,row dropped
+3655.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3656.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3657.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3658.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3659.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3660.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3661.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3662.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3663.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3664.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3665.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3666.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3667.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3668.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3669.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3670.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3671.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3672.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3673.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3674.0,<row>,exact duplicate (text + speaker + episode),row dropped
+3896.0,<row>,exact duplicate (text + speaker + episode),row dropped
+5112.0,<row>,exact duplicate (text + speaker + episode),row dropped
+5116.0,<row>,exact duplicate (text + speaker + episode),row dropped
+5768.0,<row>,exact duplicate (text + speaker + episode),row dropped
+5783.0,<row>,exact duplicate (text + speaker + episode),row dropped
+6689.0,<row>,exact duplicate (text + speaker + episode),row dropped
+6690.0,<row>,exact duplicate (text + speaker + episode),row dropped
+6691.0,<row>,exact duplicate (text + speaker + episode),row dropped
+6692.0,<row>,exact duplicate (text + speaker + episode),row dropped
+,text,157 near-duplicates flagged (≥0.9 Jaccard),"kept, see near_dup_cluster"

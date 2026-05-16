@@ -1,0 +1,43 @@
+{
+  "overall": {
+    "split_family": "fair",
+    "macro_f1_avg": 0.3528029355198385,
+    "weighted_f1_avg": 0.4790291387075305,
+    "accuracy_avg": 0.4757449757449758
+  },
+  "tasks": [
+    {
+      "task": "intent",
+      "macro_f1": 0.3318416362940485,
+      "weighted_f1": 0.5453204788234177,
+      "accuracy": 0.5322245322245323,
+      "selected_candidate": "speaker_text__union_logreg_c2",
+      "selected_text_col": "speaker_text",
+      "val_macro_f1": 0.3126229473613746,
+      "val_weighted_f1": 0.49787586398908273,
+      "train_rows_after_sampling": 6951
+    },
+    {
+      "task": "emotion",
+      "macro_f1": 0.2982757607974155,
+      "weighted_f1": 0.48523252742623196,
+      "accuracy": 0.4792099792099792,
+      "selected_candidate": "compact_feature_text__union_svc_c05",
+      "selected_text_col": "compact_feature_text",
+      "val_macro_f1": 0.2602258834304083,
+      "val_weighted_f1": 0.49750781429349017,
+      "train_rows_after_sampling": 6380
+    },
+    {
+      "task": "diagnosis_stage",
+      "macro_f1": 0.4282914094680515,
+      "weighted_f1": 0.40653440987294165,
+      "accuracy": 0.4158004158004158,
+      "selected_candidate": "compact_feature_text__union_logreg_c2",
+      "selected_text_col": "compact_feature_text",
+      "val_macro_f1": 0.401466617462336,
+      "val_weighted_f1": 0.44271003494012634,
+      "train_rows_after_sampling": 6471
+    }
+  ]
+}

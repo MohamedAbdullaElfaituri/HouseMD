@@ -1,0 +1,43 @@
+{
+  "overall": {
+    "split_family": "score",
+    "macro_f1_avg": 0.4227439726278373,
+    "weighted_f1_avg": 0.550799368654152,
+    "accuracy_avg": 0.5398284313725491
+  },
+  "tasks": [
+    {
+      "task": "intent",
+      "macro_f1": 0.4210967815130817,
+      "weighted_f1": 0.5818286488906285,
+      "accuracy": 0.5652573529411765,
+      "selected_candidate": "compact_feature_text__union_logreg_c2",
+      "selected_text_col": "compact_feature_text",
+      "val_macro_f1": 0.4316560844595875,
+      "val_weighted_f1": 0.591161186894374,
+      "train_rows_after_sampling": 6946
+    },
+    {
+      "task": "emotion",
+      "macro_f1": 0.31587014566578075,
+      "weighted_f1": 0.5498224198578674,
+      "accuracy": 0.53125,
+      "selected_candidate": "compact_feature_text__union_ridge_a2",
+      "selected_text_col": "compact_feature_text",
+      "val_macro_f1": 0.35513787078844217,
+      "val_weighted_f1": 0.5502850222389121,
+      "train_rows_after_sampling": 6425
+    },
+    {
+      "task": "diagnosis_stage",
+      "macro_f1": 0.5312649907046494,
+      "weighted_f1": 0.5207470372139601,
+      "accuracy": 0.5229779411764706,
+      "selected_candidate": "feature_text__union_svc_c05",
+      "selected_text_col": "feature_text",
+      "val_macro_f1": 0.552041225112166,
+      "val_weighted_f1": 0.5407803219574252,
+      "train_rows_after_sampling": 6360
+    }
+  ]
+}

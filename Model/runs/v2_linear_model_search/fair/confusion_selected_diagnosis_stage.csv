@@ -1,0 +1,8 @@
+,başlangıç,değerlendirme,diğer,hipotez,kesin_tanı,tedavi,test
+başlangıç,46,6,3,0,5,3,1
+değerlendirme,20,93,25,34,37,24,37
+diğer,4,22,31,23,13,6,5
+hipotez,0,24,5,65,14,4,8
+kesin_tanı,14,32,3,35,35,15,16
+tedavi,6,6,6,5,7,63,7
+test,6,39,13,5,12,12,67

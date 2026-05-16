@@ -1,0 +1,35 @@
+{
+  "split_family": "score",
+  "macro_f1_avg": 0.4311121585540552,
+  "weighted_f1_avg": 0.571140207833802,
+  "accuracy_avg": 0.5597426470588235,
+  "tasks": [
+    {
+      "split_family": "score",
+      "task": "intent",
+      "source": "v2_linear_model_search",
+      "candidate": "compact_feature_text__union_logreg_c2",
+      "macro_f1": 0.4210967815130817,
+      "weighted_f1": 0.5818286488906285,
+      "accuracy": 0.5652573529411765
+    },
+    {
+      "split_family": "score",
+      "task": "emotion",
+      "source": "v2_tfidf_task_ensemble:feature_text_soft_vote",
+      "candidate": "feature_text_soft_vote",
+      "macro_f1": 0.3409747034444347,
+      "weighted_f1": 0.6108449373968179,
+      "accuracy": 0.5909926470588235
+    },
+    {
+      "split_family": "score",
+      "task": "diagnosis_stage",
+      "source": "v2_linear_model_search",
+      "candidate": "feature_text__union_svc_c05",
+      "macro_f1": 0.5312649907046494,
+      "weighted_f1": 0.5207470372139601,
+      "accuracy": 0.5229779411764706
+    }
+  ]
+}

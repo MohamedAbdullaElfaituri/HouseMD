@@ -1,0 +1,79 @@
+experiment,split,task,macro_f1,weighted_f1,accuracy,notes
+v2_best_current_score,score,intent,0.4210967815130817,0.5818286488906285,0.5652573529411765,compact_feature_text__union_logreg_c2
+v2_best_current_score,score,emotion,0.3409747034444347,0.6108449373968179,0.5909926470588235,feature_text_soft_vote
+v2_best_current_score,score,diagnosis_stage,0.5312649907046494,0.5207470372139601,0.5229779411764706,feature_text__union_svc_c05
+v2_best_current_score,score,3task_avg,0.4311121585540552,0.571140207833802,0.5597426470588235,average
+v2_best_current_fair,fair,intent,0.3368548092582861,0.5449083299054699,0.5457380457380457,feature_text
+v2_best_current_fair,fair,emotion,0.2982757607974155,0.4852325274262319,0.4792099792099792,compact_feature_text__union_svc_c05
+v2_best_current_fair,fair,diagnosis_stage,0.4282914094680515,0.4065344098729416,0.4158004158004158,compact_feature_text__union_logreg_c2
+v2_best_current_fair,fair,3task_avg,0.3544739931745844,0.47889175573488113,0.4802494802494803,average
+multitask_berturk,test,intent,0.11012991227237,,,transformer test macro-F1
+multitask_berturk,test,emotion,0.07407939660546364,,,transformer test macro-F1
+multitask_berturk,test,diagnosis_stage,0.19710318727588677,,,transformer test macro-F1
+multitask_berturk,test,sarcasm,0.5816602674433999,,,transformer test macro-F1
+multitask_berturk,test,overall,0.2407431908992801,,,transformer test macro-F1
+multitask_berturk,test,3task_avg,0.12710416538457348,,,intent/emotion/diagnosis average
+multitask_berturk_canonical,test,intent,0.22688599086995,,,transformer test macro-F1
+multitask_berturk_canonical,test,emotion,0.16666718824552196,,,transformer test macro-F1
+multitask_berturk_canonical,test,diagnosis_stage,0.2965195614537831,,,transformer test macro-F1
+multitask_berturk_canonical,test,sarcasm,0.536823106748578,,,transformer test macro-F1
+multitask_berturk_canonical,test,overall,0.30672396182945827,,,transformer test macro-F1
+multitask_berturk_canonical,test,3task_avg,0.23002424685641834,,,intent/emotion/diagnosis average
+multitask_berturk_canonical_balanced,test,intent,0.23517315844767922,,,transformer test macro-F1
+multitask_berturk_canonical_balanced,test,emotion,0.1877015947545733,,,transformer test macro-F1
+multitask_berturk_canonical_balanced,test,diagnosis_stage,0.3013516274496512,,,transformer test macro-F1
+multitask_berturk_canonical_balanced,test,sarcasm,0.374056158565361,,,transformer test macro-F1
+multitask_berturk_canonical_balanced,test,overall,0.2745706348043162,,,transformer test macro-F1
+multitask_berturk_canonical_balanced,test,3task_avg,0.24140879355063458,,,intent/emotion/diagnosis average
+multitask_berturk_nosarcasm_balanced,test,intent,0.23097051548729589,,,transformer test macro-F1
+multitask_berturk_nosarcasm_balanced,test,emotion,0.18534871519197216,,,transformer test macro-F1
+multitask_berturk_nosarcasm_balanced,test,diagnosis_stage,0.29660350471384755,,,transformer test macro-F1
+multitask_berturk_nosarcasm_balanced,test,overall,0.2376409117977052,,,transformer test macro-F1
+multitask_berturk_nosarcasm_balanced,test,3task_avg,0.2376409117977052,,,intent/emotion/diagnosis average
+multitask_modernbert_tr_nosarcasm,test,intent,0.21797427224433508,,,transformer test macro-F1
+multitask_modernbert_tr_nosarcasm,test,emotion,0.1858818397840254,,,transformer test macro-F1
+multitask_modernbert_tr_nosarcasm,test,diagnosis_stage,0.2931332114340704,,,transformer test macro-F1
+multitask_modernbert_tr_nosarcasm,test,overall,0.23232977448747696,,,transformer test macro-F1
+multitask_modernbert_tr_nosarcasm,test,3task_avg,0.23232977448747696,,,intent/emotion/diagnosis average
+v2_tfidf_taxonomy_v2_text,score,intent,0.3135492316489557,0.5369948153516398,0.5248161764705882,taxonomy_v2_text
+v2_tfidf_taxonomy_v2_text,score,emotion,0.2141439411805009,0.4348276707179553,0.4200367647058823,taxonomy_v2_text
+v2_tfidf_taxonomy_v2_text,score,diagnosis_stage,0.3828834440644583,0.4050544202169557,0.4034926470588235,taxonomy_v2_text
+v2_tfidf_feature_text,score,intent,0.2959913757300501,0.4860587137196242,0.4650735294117647,feature_text
+v2_tfidf_feature_text,score,emotion,0.3174332619265484,0.6170539893236693,0.6038602941176471,feature_text
+v2_tfidf_feature_text,score,diagnosis_stage,0.5272945676013148,0.5236055141807293,0.5238970588235294,feature_text
+v2_tfidf_feature_text_sampled,score,intent,0.2984996420304419,0.4594489518614645,0.4356617647058823,feature_text_sampled
+v2_tfidf_feature_text_sampled,score,emotion,0.3198998371300305,0.5928313000990002,0.5698529411764706,feature_text_sampled
+v2_tfidf_feature_text_sampled,score,diagnosis_stage,0.5281453447543157,0.5240852403772065,0.5248161764705882,feature_text_sampled
+v2_tfidf_feature_text_sampled_augmented,score,intent,0.2951840531177666,0.4578225697122118,0.4356617647058823,feature_text_sampled_augmented
+v2_tfidf_feature_text_sampled_augmented,score,emotion,0.3218633596996956,0.5947018271916825,0.5735294117647058,feature_text_sampled_augmented
+v2_tfidf_feature_text_sampled_augmented,score,diagnosis_stage,0.5267728906399793,0.5255661248431273,0.5266544117647058,feature_text_sampled_augmented
+v2_tfidf_feature_text_soft_vote,score,intent,0.314333200684859,0.4728274960720453,0.4503676470588235,feature_text_soft_vote
+v2_tfidf_feature_text_soft_vote,score,emotion,0.3409747034444347,0.6108449373968179,0.5909926470588235,feature_text_soft_vote
+v2_tfidf_feature_text_soft_vote,score,diagnosis_stage,0.519233808690505,0.5225730546738683,0.5238970588235294,feature_text_soft_vote
+v2_tfidf_taxonomy_v2_text,fair,intent,0.3050042836529615,0.5156610590716922,0.498960498960499,taxonomy_v2_text
+v2_tfidf_taxonomy_v2_text,fair,emotion,0.2296553156446326,0.3967374204234936,0.3856548856548856,taxonomy_v2_text
+v2_tfidf_taxonomy_v2_text,fair,diagnosis_stage,0.3594547482967981,0.3483469133026821,0.3544698544698544,taxonomy_v2_text
+v2_tfidf_feature_text,fair,intent,0.3368548092582861,0.5449083299054699,0.5457380457380457,feature_text
+v2_tfidf_feature_text,fair,emotion,0.2939614532847734,0.4956667939464257,0.5041580041580042,feature_text
+v2_tfidf_feature_text,fair,diagnosis_stage,0.3802345273002902,0.3616148496403806,0.3773388773388773,feature_text
+v2_tfidf_feature_text_sampled,fair,intent,0.3076718282477273,0.5184766413961104,0.5187110187110187,feature_text_sampled
+v2_tfidf_feature_text_sampled,fair,emotion,0.2824160454369315,0.4793324275931581,0.4833679833679833,feature_text_sampled
+v2_tfidf_feature_text_sampled,fair,diagnosis_stage,0.3819334542187892,0.3646595688792861,0.3825363825363825,feature_text_sampled
+v2_tfidf_feature_text_sampled_augmented,fair,intent,0.3056761923475037,0.5178576531582046,0.5176715176715176,feature_text_sampled_augmented
+v2_tfidf_feature_text_sampled_augmented,fair,emotion,0.2817109341129241,0.4747976076649546,0.4792099792099792,feature_text_sampled_augmented
+v2_tfidf_feature_text_sampled_augmented,fair,diagnosis_stage,0.380450077385434,0.3645977649440023,0.3783783783783784,feature_text_sampled_augmented
+v2_tfidf_feature_text_soft_vote,fair,intent,0.3109564778477441,0.5281569483776624,0.524948024948025,feature_text_soft_vote
+v2_tfidf_feature_text_soft_vote,fair,emotion,0.2681462595242501,0.4599963113133284,0.4636174636174636,feature_text_soft_vote
+v2_tfidf_feature_text_soft_vote,fair,diagnosis_stage,0.3788604473773578,0.3691308582721285,0.3835758835758835,feature_text_soft_vote
+v2_linear_model_search,score,intent,0.4210967815130817,0.5818286488906285,0.5652573529411765,compact_feature_text__union_logreg_c2
+v2_linear_model_search,score,emotion,0.3158701456657807,0.5498224198578674,0.53125,compact_feature_text__union_ridge_a2
+v2_linear_model_search,score,diagnosis_stage,0.5312649907046494,0.5207470372139601,0.5229779411764706,feature_text__union_svc_c05
+v2_linear_model_search,fair,intent,0.3318416362940485,0.5453204788234177,0.5322245322245323,speaker_text__union_logreg_c2
+v2_linear_model_search,fair,emotion,0.2982757607974155,0.4852325274262319,0.4792099792099792,compact_feature_text__union_svc_c05
+v2_linear_model_search,fair,diagnosis_stage,0.4282914094680515,0.4065344098729416,0.4158004158004158,compact_feature_text__union_logreg_c2
+v2_embedding_linear_feature_text,score,intent,0.2864929450141203,0.2917799975072904,0.2876838235294117,svc_c1_bal
+v2_embedding_linear_feature_text,score,emotion,0.2170724716055831,0.4275600550474603,0.3630514705882353,svc_c05_bal
+v2_embedding_linear_feature_text,score,diagnosis_stage,0.3990648679201233,0.3834926904697497,0.4044117647058823,svc_c1_bal
+v2_task_berturk_score_1epoch,score,intent,0.28673888757982935,0.47765755941836074,,1 epoch smoke test
+v2_task_berturk_score_1epoch,score,emotion,0.10941179712268462,0.37847756394977,,1 epoch smoke test
+v2_task_berturk_score_1epoch,score,diagnosis_stage,0.39937988139608166,0.39376186653234296,,1 epoch smoke test

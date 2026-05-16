@@ -1,0 +1,4 @@
+task,macro_f1,weighted_f1,accuracy,selected_candidate,selected_text_col,val_macro_f1,val_weighted_f1,train_rows_after_sampling
+intent,0.3318416362940485,0.5453204788234177,0.5322245322245323,speaker_text__union_logreg_c2,speaker_text,0.3126229473613746,0.49787586398908273,6951
+emotion,0.2982757607974155,0.48523252742623196,0.4792099792099792,compact_feature_text__union_svc_c05,compact_feature_text,0.2602258834304083,0.49750781429349017,6380
+diagnosis_stage,0.4282914094680515,0.40653440987294165,0.4158004158004158,compact_feature_text__union_logreg_c2,compact_feature_text,0.401466617462336,0.44271003494012634,6471

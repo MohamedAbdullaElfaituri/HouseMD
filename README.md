@@ -1,223 +1,103 @@
-# House M.D. NLP Tanı Tahmin Projesi
+# House MD Turkish NLP
 
-## Proje Özeti
+This repository contains the cleaned House MD Turkish dialogue dataset, the final selected models, and the scripts needed to reproduce the preprocessing and model experiments.
 
-Bu proje, House M.D. dizisinden hazırlanmış replik ve vaka bilgilerini kullanarak verilen bir vaka metni için olası tanı etiketlerini tahmin eden bir doğal dil işleme çalışmasıdır. Çalışma kapsamında veri seti temizlenmiş, metin alanları modele uygun hale getirilmiş, birden fazla metin sınıflandırma modeli karşılaştırılmış ve en başarılı model web arayüzünde kullanılmak üzere kaydedilmiştir.
+The project predicts three labels from a dialogue line:
 
-Proje eğitim amaçlıdır. Üretilen tahminler gerçek klinik tanı, tedavi kararı veya tıbbi öneri olarak kullanılmamalıdır.
+- `intent`: the purpose of the line
+- `emotion`: the emotional tone
+- `diagnosis_stage`: where the line belongs in the medical reasoning process
 
-## Amaç
+`sarcasm` was removed from the final modeling target because it was noisy and hurt the multi-task setup.
 
-Projenin temel amacı, vaka metni ve yardımcı klinik alanlardan yararlanarak `correct_prediction` alanındaki tanı etiketini tahmin etmektir. Bu amaç doğrultusunda proje aşağıdaki adımları kapsar:
-
-- Veri setini okuyup temel kalite kontrollerini yapmak.
-- Türkçe karakterleri koruyarak metinleri temizlemek ve normalleştirmek.
-- Replik, semptom, test, ilaç, prosedür, organ ve meta bilgileri tek bir model girdisine dönüştürmek.
-- Farklı sınıflandırma algoritmalarını aynı veri üzerinde karşılaştırmak.
-- En iyi modeli kaydedip kullanıcı dostu bir tahmin arayüzü oluşturmak.
-
-## Kullanılan Veri Seti
-
-Veri seti `DATA/Last_HouseMD_DataSet.csv` dosyasında yer almaktadır. CSV dosyası `;` ayracı ile okunmuştur. Tüm alanlar metin olarak alınmış, boş satırlar ve kullanılamayan hedef etiketleri temizlenmiştir.
-
-Model girdisinde kullanılan başlıca alanlar:
-
-- `text`: Replik veya vaka metni
-- `Symptom`: Semptom bilgisi
-- `Test`: Test veya tetkik bilgisi
-- `Drug`: İlaç bilgisi
-- `Procedure`: Prosedür bilgisi
-- `Organ`: Organ bilgisi
-- `speaker`: Konuşmacı
-- `Intent`: Konuşma niyeti
-- `diagnosis_stage`: Tanı aşaması
-- `Emotion`: Duygu bilgisi
-- `Sarcasm`: Sarkazm bilgisi
-- `medical_entities`: Metinden çıkarılmış tıbbi varlıklar
-
-Hedef değişken `correct_prediction` alanıdır. Ayrıca `model_prediction` alanı veri sızıntısı riski taşıdığı için model girdisine dahil edilmemiştir.
-
-## Veri Ön İşleme
-
-Ön işleme aşamasında şu işlemler uygulanmıştır:
-
-- Metinler küçük harfe çevrilmiştir.
-- URL, gereksiz noktalama ve özel karakterler temizlenmiştir.
-- Türkçe karakterler korunmuştur.
-- Boş veya geçersiz hedef etiketleri veri setinden çıkarılmıştır.
-- Farklı yazılmış bazı tanı etiketleri ortak bir etikete dönüştürülmüştür.
-- Çok az örneğe sahip sınıflar filtrelenmiştir.
-- Aynı sezon ve bölüm içerisindeki semptom, test, ilaç, prosedür, organ ve tıbbi varlık bilgilerinden kısa bir vaka bağlamı oluşturulmuştur.
-
-Bu işlemlerden sonra modelleme için 4.415 satır ve 80 tanı sınıfı kullanılmıştır.
-
-## Özellik Çıkarımı
-
-Model girdisi `model_text` adlı tek bir metin alanında birleştirilmiştir. Bu alan; replik metni, klinik alanlar, meta bilgiler ve bölüm bazlı vaka bağlamından oluşur.
-
-Metinlerden sayısal özellik çıkarmak için `TfidfVectorizer` kullanılmıştır. TF-IDF ayarları genel olarak şu şekildedir:
-
-- Kelime tabanlı TF-IDF
-- 1, 2 ve 3 kelimelik n-gramlar
-- Türkçe durak kelimelerin çıkarılması
-- En fazla 90.000 özellik
-- `sublinear_tf=True`
-
-## Modelleme Yöntemi
-
-Çalışma çok sınıflı metin sınıflandırma problemi olarak ele alınmıştır. Veri seti yüzde 80 eğitim, yüzde 20 test olacak şekilde ayrılmıştır. Sınıf dağılımı dengesiz olduğu için dengeleme yalnızca eğitim verisi üzerinde uygulanmıştır. Test verisi gerçek dağılımı korumuştur.
-
-Karşılaştırılan modeller:
-
-| Model | Yaklaşım |
-| --- | --- |
-| ComplementNB word_tfidf balanced_train_max | Complement Naive Bayes |
-| PassiveAggressive word_tfidf balanced_train_max | Passive-Aggressive Linear Classifier |
-| SGD modified_huber word_tfidf balanced_train_max | SGD Modified Huber Linear Classifier |
-
-En iyi model `test_macro_f1` metriğine göre seçilmiştir.
-
-## Deney Sonuçları
-
-Modelleme sonucunda en başarılı model `SGD modified_huber word_tfidf balanced_train_max` olmuştur.
-
-| Model | Accuracy | Balanced Accuracy | Macro F1 | Weighted F1 |
-| --- | ---: | ---: | ---: | ---: |
-| SGD Modified Huber | 0.9830 | 0.9848 | 0.9823 | 0.9831 |
-| Passive-Aggressive | 0.9796 | 0.9722 | 0.9761 | 0.9781 |
-| Complement Naive Bayes | 0.9558 | 0.9846 | 0.9711 | 0.9571 |
-
-Özet veri istatistikleri:
-
-| Ölçüt | Değer |
-| --- | ---: |
-| Ham satır sayısı | 7.282 |
-| Temizleme sonrası geçerli satır | 5.415 |
-| Nadir sınıflardan çıkarılan satır | 1.000 |
-| Modelde kullanılan satır | 4.415 |
-| Sınıf sayısı | 80 |
-| Eğitim satırı | 3.532 |
-| Eğitim dengeleme sonrası satır | 27.040 |
-| Test satırı | 883 |
-| Minimum sınıf eşiği | 20 |
-
-Sonuçlara göre TF-IDF özellikleri ve lineer sınıflandırıcılar bu veri setinde yüksek başarı göstermiştir. En iyi model hem genel doğruluk hem de sınıflar arası dengeyi dikkate alan Macro F1 metriğinde başarılıdır.
-
-## Kaydedilen Model
-
-Eğitim sonucunda seçilen model aşağıdaki dosyaya kaydedilmiştir:
+## Folder Structure
 
 ```text
-models/best_housemd_diagnosis_model.joblib
+DATASET/
+  Last_HouseMD_DataSet(Sayfa1).csv
+
+Data Analysis/
+  scripts/
+  outputs/
+    cleaned_dataset.csv
+    cleaned_dataset_v2.csv
+    splits_score/
+    splits_fair/
+  reports/
+
+Model/
+  app/
+  baselines/
+  runs/
+    v2_linear_model_search/
+    v2_tfidf_task_ensemble/
+    v2_best_current/
+
+sunum/
 ```
 
-Model paketi içinde seçilen pipeline, aday modeller, sınıf listesi, test sonuçları, veri özeti ve sınıflandırma raporu bulunmaktadır. Web arayüzü bu dosyayı doğrudan yükleyerek tahmin üretir.
+`sunum/` is intentionally empty so you can put the final presentation file there.
 
-Chatbot için ayrıca aşağıdaki retrieval modeli eklenmiştir:
-
-```text
-models/housemd_chatbot_retrieval_model.joblib
-```
-
-Bu paket, House M.D. veri setindeki vaka satırlarını TF-IDF ile temsil eder ve kullanıcının yazdığı mesaja en yakın örnekleri `NearestNeighbors` ile bulur. Arayüzdeki chatbot bu benzer kayıtları mevcut tanı sınıflandırma modelinin ilk 3 tahminiyle birlikte yanıt metnine dönüştürür.
-
-## Web Arayüzü
-
-`app.py` dosyası, Python'un standart `http.server` altyapısını kullanarak basit bir web arayüzü sunar. Kullanıcı vaka metni ve klinik alanları doldurduktan sonra model en olası tanı etiketlerini sıralı şekilde döndürür.
-
-Arayüzün sunduğu temel özellikler:
-
-- Vaka metni girişi
-- Semptom, test, ilaç, prosedür ve organ alanları
-- Konuşmacı, niyet, tanı aşaması, duygu ve sarkazm alanları
-- En olası 3, 5 veya 10 tanı sonucunu gösterme
-- House M.D. veri setiyle benzer vaka arayan chatbot paneli
-- Chatbot cevaplarında ilk 3 tanı etiketi ve en yakın örnek bilgisini gösterme
-- Model ve veri özet metriklerini görüntüleme
-
-## Kurulum ve Çalıştırma
-
-Projeyi çalıştırmak için Python 3.10 veya üzeri bir sürüm önerilir.
-
-1. Sanal ortam oluşturun:
+## Install
 
 ```bash
-python -m venv .venv
+python -m pip install -r requirements.txt
 ```
 
-2. Sanal ortamı etkinleştirin:
+For old transformer experiments, use `Model/requirements.txt` instead. The final demo does not require Torch or Transformers.
+
+## Run Demo
 
 ```bash
-.\.venv\Scripts\activate
+python Model/app/app.py
 ```
 
-3. Gerekli paketleri kurun:
+The demo loads the current best score-split combination:
+
+- intent: `Model/runs/v2_linear_model_search/score/selected_intent.joblib`
+- emotion: `Model/runs/v2_tfidf_task_ensemble/score/model_feature_text_soft_vote_emotion.joblib`
+- diagnosis_stage: `Model/runs/v2_linear_model_search/score/selected_diagnosis_stage.joblib`
+
+## Rebuild Data Pipeline
 
 ```bash
-pip install pandas numpy scikit-learn joblib matplotlib seaborn
+python "Data Analysis/scripts/clean_dataset.py"
+python "Data Analysis/scripts/prepare_v2_pipeline.py"
 ```
 
-4. Web arayüzünü başlatın:
+These generate:
+
+- `Data Analysis/outputs/cleaned_dataset.csv`
+- `Data Analysis/outputs/cleaned_dataset_v2.csv`
+- `Data Analysis/outputs/splits_score/{train,val,test}.csv`
+- `Data Analysis/outputs/splits_fair/{train,val,test}.csv`
+
+## Retrain Final Classical Models
 
 ```bash
-python app.py
+python Model/baselines/v2_tfidf_task_ensemble.py --split-family both --save-models
+python Model/baselines/v2_linear_model_search.py --split-family both
 ```
 
-5. Tarayıcıdan aşağıdaki adrese gidin:
+## Current Best Scores
 
-```text
-http://127.0.0.1:8501
-```
+Score split:
 
-## Proje Dosya Yapısı
+- intent macro-F1: `0.4211`
+- emotion macro-F1: `0.3410`
+- diagnosis_stage macro-F1: `0.5313`
+- 3-task average macro-F1: `0.4311`
 
-```text
-NLP_Project/
-+-- DATA/
-|   +-- Last_HouseMD_DataSet.csv
-+-- models/
-|   +-- best_housemd_diagnosis_model.joblib
-|   +-- housemd_chatbot_retrieval_model.joblib
-+-- app.py
-+-- HouseMD_NLP_Modelleme.ipynb
-+-- HouseMD_Chatbot_Egitimi.ipynb
-+-- .gitignore
-+-- README.md
-```
+Fair split:
 
-## Notebook İçeriği
+- intent macro-F1: `0.3369`
+- emotion macro-F1: `0.2983`
+- diagnosis_stage macro-F1: `0.4283`
+- 3-task average macro-F1: `0.3545`
 
-`HouseMD_NLP_Modelleme.ipynb` dosyası modelleme sürecinin ayrıntılı halini içerir. Notebook içerisinde:
+## Notes
 
-- Veri seti okuma ve kalite analizi
-- Hedef etiket temizleme
-- Metin normalizasyonu
-- Vaka bağlamı oluşturma
-- Eğitim/test ayrımı
-- Eğitim verisi dengeleme
-- Model karşılaştırması
-- Karışıklık matrisi ve hata analizi
-- En iyi modelin kaydedilmesi
-
-adımları bulunmaktadır.
-
-`HouseMD_Chatbot_Egitimi.ipynb` dosyası chatbot modelinin yeniden üretilebilir eğitim akışını içerir. Notebook içerisinde:
-
-- Veri setinin okunması
-- Chatbot araması için metin ve vaka bağlamı oluşturma
-- TF-IDF özellik çıkarımı
-- Cosine distance tabanlı en yakın komşu modelinin eğitilmesi
-- `models/housemd_chatbot_retrieval_model.joblib` dosyasının kaydedilmesi
-- Örnek chatbot araması
-
-adımları bulunmaktadır.
-
-## Değerlendirme ve Limitasyonlar
-
-Model test setinde yüksek başarı elde etmiştir; ancak sonuçlar veri setinin yapısı ve sınıf dağılımı ile sınırlıdır. Nadir tanı sınıfları modelden çıkarıldığı için model yalnızca yeterli örneğe sahip sınıflar üzerinde tahmin üretir. Ayrıca eğitim verisi House M.D. dizisinden geldiği için gerçek klinik vakaları temsil ettiği varsayılamaz.
-
-Bu nedenle modelin çıktıları yalnızca doğal dil işleme ve makine öğrenmesi eğitimi kapsamında değerlendirilmelidir.
-
-## Sonuç
-
-Bu projede House M.D. veri seti kullanılarak tanı etiketi tahmini yapan bir NLP modeli geliştirilmiştir. TF-IDF tabanlı metin özellikleri ve SGD Modified Huber sınıflandırıcısı ile en iyi sonuç elde edilmiştir. Kaydedilen model, `app.py` ile sunulan web arayüzü üzerinden kullanıcı girdilerine göre en olası tanı etiketlerini listeleyebilmektedir.
+- The dataset is based on fictional TV dialogue, not real clinical records.
+- The model is not medical advice.
+- Label noise remains, especially in `emotion`.
+- The best improvement came from data cleaning, label taxonomy simplification, context/entity feature text, and task-specific linear model search.

@@ -1,0 +1,4 @@
+task,macro_f1,weighted_f1,accuracy,selected_candidate,selected_text_col,val_macro_f1,val_weighted_f1,train_rows_after_sampling
+intent,0.4210967815130817,0.5818286488906285,0.5652573529411765,compact_feature_text__union_logreg_c2,compact_feature_text,0.4316560844595875,0.591161186894374,6946
+emotion,0.31587014566578075,0.5498224198578674,0.53125,compact_feature_text__union_ridge_a2,compact_feature_text,0.35513787078844217,0.5502850222389121,6425
+diagnosis_stage,0.5312649907046494,0.5207470372139601,0.5229779411764706,feature_text__union_svc_c05,feature_text,0.552041225112166,0.5407803219574252,6360

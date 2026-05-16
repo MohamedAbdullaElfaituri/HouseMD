@@ -1,0 +1,4 @@
+split_family,task,source,candidate,macro_f1,weighted_f1,accuracy
+fair,intent,v2_tfidf_task_ensemble:feature_text,feature_text,0.3368548092582861,0.5449083299054699,0.5457380457380457
+fair,emotion,v2_linear_model_search,compact_feature_text__union_svc_c05,0.2982757607974155,0.4852325274262319,0.4792099792099792
+fair,diagnosis_stage,v2_linear_model_search,compact_feature_text__union_logreg_c2,0.4282914094680515,0.4065344098729416,0.4158004158004158

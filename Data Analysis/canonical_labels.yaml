@@ -1,0 +1,578 @@
+# Canonical label map — synonym surface form → canonical class.
+# Aggressively consolidated to: 12 intent / 10 emotion / 8 diagnosis_stage classes.
+# Generated semi-automatically from reports/label_clusters_*.csv then merged by topic.
+# Unmapped values fall through unchanged and are logged to inconsistency_log.csv.
+
+intent:
+  açıklama:
+    - açıklama
+    - prosedür açıklama
+    - prosedür_açıklama
+    - prosedür
+    - prosedür_bildirimi
+    - semptom açıklama
+    - semptom bildirimi
+    - semptom_bildirimi
+    - semptom bildirme
+    - semptom gözlemi
+    - semptom değerlendirmesi
+    - alternatif açıklama
+    - tedavi açıklama
+    - test materyali açıklama
+    - neden açıklama
+    - teşhis açıklama
+    - bilgi verme
+    - bilgilendirici
+    - bilgi verici
+    - i̇laç açıklaması
+    - hastalık bildirme
+    - hastalık bilgisi verme
+    - ameliyat bulgusu bildirme
+    - karşılaştırma yapma
+    - durum tespiti
+    - durum bildirimi
+    - durum_bildirimi
+    - durum bilgilendirmesi
+    - durum güncellemesi
+    - durum değerlendirmesi
+    - geçmiş_bildirimi
+    - raporlama
+    - klinik ziyaret
+    - vaka sunumu
+    - hikaye
+    - öykü
+    - tıbbi öykü
+    - analiz_bildirimi
+    - sonuç_bildirimi
+    - tanı_açıklama
+    - risk açıklaması
+    - risk_bildirimi
+    - bulgu
+    - bilgi isteme
+    - bilgi talebi
+  hipotez:
+    - hipotez
+    - hipotez önerme
+    - hipotez çürütme
+    - yeni hipotez önerme
+    - hipotez destekleme
+    - hipotez kurma
+    - hipotez sunma
+    - hipotez tekrarlama
+    - hipotez_önerisi
+    - hipotezi savunma
+    - hipotezi destekleme
+    - alternatif
+    - alternatif bulmak
+    - teori
+    - tahmin
+    - fikir yürütme
+  soru:
+    - soru
+    - soru sorma
+    - sorgu
+    - sorgulama
+    - semptom sorgulama
+    - neden_sorgulama
+    - soru_geçmiş
+    - soru_prosedür
+    - soru_tedavi
+    - durum_sorgulama
+    - şüphe
+    - şüphe bildirme
+  tanı:
+    - tanı
+    - tanı koymak
+    - ön tanı koymak
+    - tanı koyma
+    - ayırıcı tanı
+    - alternatif tanı önerme
+    - kesin tanı
+    - kesin tanı koyma
+    - kesin tanı tahmini
+    - tanı iddiası
+    - tanı bildirme
+    - tanı açıklaması
+    - kesin_tanı
+    - teşhis
+    - teşhis sorgusu
+    - teşhis koyma
+    - teşhis onaylama
+    - teşhis çürütme
+    - tanısal
+    - sonuç
+    - final
+    - semptom / teşhis bildirme
+  tedavi:
+    - tedavi
+    - tedavi önerisi
+    - tedavi talimatı
+    - tedavi planı
+    - tedavi önerme
+    - tedavi planlama
+    - tedavi sonucu bildirme
+    - tedavi bildirimi
+    - teşhis ve tedavi planı
+    - tedavi_önerisi
+    - tedavi/test
+    - çözüm önerme
+    - reçete
+    - i̇şlem
+  emir:
+    - emir
+    - talimat
+    - talimat verme
+    - yöntem önerisi
+    - müdahale
+  değerlendirme:
+    - değerlendirme
+    - durum değerlendirme
+    - genel değerlendirme
+    - test sonucu değerlendirme
+    - teşhis değerlendirme
+  test:
+    - test
+    - test talebi
+    - test i̇steği
+    - test_i̇steği
+    - test istemek
+    - test sonucu bildirme
+    - test sonucu bildirmek
+    - test talimatı
+    - test önerme
+    - test istemi
+    - test sonucu
+    - test sonucu uyumsuzluğu
+    - muayene
+    - sonuç değerlendirmesi
+  gözlem:
+    - gözlem
+    - gözlem gözlem
+    - gözlem ... gözlem
+    - özetleme
+    - semptomları özetleme
+  öneri:
+    - öneri
+  şaka:
+    - şaka
+    - i̇ğneleme / gerçeği çarpıtma
+    - küçümseme / kıyaslama
+    - sarcastic yorum
+    - etik yorum
+    - yorum
+  uyarı:
+    - uyarı
+    - risk uyarısı
+    - risk
+    - durum uyarısı
+    - acil
+    - acil müdahale
+    - acil müdahale bildirimi
+    - acil durum tespiti
+  diğer:
+    - karar
+    - itiraz
+    - i̇tiraz
+    - itirazcı
+    - inkar
+    - red
+    - ret
+    - düzeltme
+    - talep
+    - araştırma istemi
+    - araştırma
+    - şikayet
+    - şikayet bildirimi
+    - semptom inkarı
+    - endişe
+    - çaresizlik bildirme
+    - yönlendirme
+    - konsültasyon
+    - danışma
+    - plan
+    - i̇kna etme
+    - i̇kna
+    - ikna
+    - kişisel
+    - politika
+    - onay
+    - onay_bildirimi
+    - komplikasyon
+    - yan etki
+    - akut
+    - amaç
+    - empati
+    - susuzluk gidermek
+    - uyuşturucu elemek
+    - uyuşturucu elendi
+    - klinik ziyaret
+    - deneysel
+    - arrest
+    - tedavi_önerisi
+    - hastalık_ilerlemesi
+
+emotion:
+  nötr:
+    - nötr
+    - nört
+    - tarafsız
+    - sakin
+    - rahat
+    - profesyonel
+    - resmi
+    - teknik
+    - bilimsel
+    - kayıtsız
+    - net
+    - gözlemci
+  ciddi:
+    - ciddi
+    - ciddiyet
+    - sert
+    - vahametli
+    - karamsar
+    - gerçekçi
+    - dikkatli
+    - eleştirel
+    - emredici
+    - otoriter
+    - kararlı
+    - hızlı
+    - i̇nançlı
+    - inatçı
+    - i̇natçı
+    - iddialı
+    - kibirli
+    - meydan okuyan
+    - savunmacı
+    - karşıt
+  alaycı:
+    - alaycı
+    - iğneleyici
+    - i̇ğneleyici
+    - ukala
+    - bilgiç
+    - nükteli
+    - esprili
+    - manipülatif
+    - hesaplanmış
+    - zalim
+    - küçümseyici
+    - düşmanca
+  kaygı:
+    - kaygı
+    - kaygılı
+    - endişe
+    - endişeli
+    - panik
+    - korku
+    - korkmuş
+    - korkulu
+    - tedirgin
+    - telaşlı
+    - stres
+    - stresli
+    - gergin
+    - kuşkulu
+    - temkinli
+    - sabırsızlık
+    - aceleci
+    - acil
+    - çekingen
+    - korkutucu
+  analitik:
+    - analitik
+    - mantıklı
+    - düşünceli
+    - meraklı
+    - merak
+    - sorgulayıcı
+    - soru soran
+    - araştırmacı
+    - odaklanmış
+    - konsantrasyon
+    - zeki
+    - bilgili
+    - bilgi verici
+    - bilgilendirici
+    - açıklayıcı
+    - öğretici
+    - pratik
+    - çözüm odaklı
+    - gizemli
+  umut:
+    - umut
+    - umutlu
+    - mutlu
+    - mutluluk
+    - sevinç
+    - rahatlama
+    - rahatlamış
+    - rahatlatıcı
+    - memnun
+    - heyecanlı
+    - heyecan
+    - hevesli
+    - enerjik
+    - zafer
+    - muzaffer
+    - aydınlanma
+    - aydınlanmış
+    - güven
+    - güven verici
+    - güvence_verici
+    - emin
+    - kendinden emin
+    - olumlu
+    - ikna edici
+    - i̇kna edici
+    - destekleyici
+    - şefkatli
+    - yardımsever
+    - anlayışlı
+    - minnettar
+    - fedakar
+    - yatıştırıcı
+    - cesur
+  üzgün:
+    - üzgün
+    - üzüntü
+    - hüzün
+    - hüzünlü
+    - keder
+    - acı
+    - acı içinde
+    - acı dolu
+    - acı çeken
+    - acılı
+    - ağlamaklı
+    - mahcup
+    - utanmış
+    - suçlu
+    - suçluluk
+    - hayal kırıklığı
+    - mutsuz
+    - mutsuzluk
+    - umutsuz
+    - umutsuzluk
+    - çaresiz
+    - ümitsizlik
+    - teslimiyetçi
+    - boşluk
+    - izdırap
+    - dehşete düşmüş
+    - tehlikeli
+    - özür dileyen
+  öfke:
+    - öfke
+    - öfkeli
+    - kızgın
+    - sinirli
+    - irritasyon
+    - bıkkın
+    - bıkkınlık
+    - rahatsız
+    - rahatsızlık
+    - şikayetçi
+    - i̇tiraz eden
+    - itiraz eden
+    - itiraz
+    - itirazcı
+    - umursamaz
+    - i̇ğrenme
+    - iğrenme
+  şüpheci:
+    - şüpheci
+    - şüpheli
+    - şüphe
+    - tereddütlü
+    - kararsız
+    - kafası karışık
+    - şaşkın
+    - şaşkınlık
+    - şaşırmış
+    - şok
+    - şok edici
+    - şok olmuş
+    - delüzyonel
+    - onaylayıcı
+  diğer:
+    - empati
+    - yorgun
+    - yorgunluk
+    - bitkin
+    - halsizlik
+    - sıkılmış
+    - yıkılmış
+    - zorlanmış
+    - hasta
+    - aç
+    - solunum
+    - cilt
+    - kötü
+    - emin olmayan
+    - emir
+    - özel
+    - fmf
+
+diagnosis_stage:
+  hipotez:
+    - hipotez
+    - yeni_hipotez
+    - teori
+  test:
+    - test
+    - test / tetkik
+    - test sonucu
+    - test / tedavi
+    - tedavi / test
+    - test_sonucu
+    - test_süreci
+    - test_aşaması
+    - test_isteme
+    - tetkik planı
+    - tetkik sonucu
+    - tetkik_aşaması
+    - i̇lk_tetkik
+    - semptom incelemesi
+    - semptom_keşfi
+    - semptom_belirtme
+    - semptom_tanıma
+    - semptom_yorumu
+  değerlendirme:
+    - değerlendirme
+    - ilk_değerlendirme
+    - i̇lk muayene
+    - hastalık seyri
+    - durum
+    - durum_bildirimi
+    - durum_özeti
+    - hasta_durumu
+    - hasta_öyküsü
+    - hasta öyküsü
+    - öykü
+    - hikaye
+    - geçmiş
+    - belirsiz
+    - klinik
+    - bilgi verici
+    - hastalık_mekanizması
+    - hastalık_ilerlemesi
+  tedavi:
+    - tedavi
+    - tedavi sonrası
+    - tedavi planı
+    - tedavi sonucu
+    - tedavi_planı
+    - tedavi_süreci
+    - tedavi_riski
+    - tedavi_komplikasyonu
+    - tedavi_reddi
+    - hastalık seyri / tedavi
+    - alternatif_tedavi
+    - deneysel_tedavi
+    - prosedür_planı
+    - prosedür_bilgisi
+    - prosedür_amacı
+    - tıbbi müdahale
+    - ameliyat
+    - ameliyat sonrası
+    - cerrahi
+    - post_op
+  kesin_tanı:
+    - kesin_tanı
+    - kesin tanı
+    - sonuç / kesin tanı
+    - sonuç
+    - poliklinik / sonuç
+    - teşhis
+    - teşhis doğrulamak
+    - teşhisi doğrulamak
+    - tanı
+    - ayırıcı tanı
+    - ayırıcı_tanı
+    - tanı süreci
+    - tanı araması
+    - tanı koymak
+    - erken tanı
+    - ön tanı
+    - i̇lk tanı
+    - i̇lk tanıyı reddetmek
+    - yalan_teşhis
+    - yalan_kanıt
+    - teşhis_sorgusu
+    - tanı_öncesi
+    - final
+  başlangıç:
+    - başlangıç
+    - başlangıç / şikayet
+    - poliklinik / şikayet
+    - şikayet
+    - i̇lk muayene
+    - erken evre
+    - erken
+    - akut
+    - kriz
+    - kritik
+    - kritik_aşama
+    - panik
+    - uyarı
+    - önlem
+    - risk
+  izleme:
+    - izlem
+    - izleme
+    - orta evre
+    - orta
+    - i̇leri evre
+    - geç
+    - son
+    - terminal
+    - kronik
+    - prognoz
+    - iyileşme
+    - psikiyatrik_durum
+  acil:
+    - acil
+    - acil durum
+    - acil durum / ameliyat
+    - acil_müdahale
+    - arrest
+    - komplikasyon
+  diğer:
+    - yok
+    - araştırma
+    - itiraz
+    - karar
+    - savunma
+    - keder
+    - endişe
+    - itiraf
+    - belge
+    - plan
+    - onay
+    - polis
+    - otopsi
+    - post_mortem
+    - deneysel_aşama
+    - ukala
+    - "0"
+    - etik_sorun
+
+sarcasm:
+  "0":
+    - "0"
+    - 0
+    - hayır
+    - no
+  "1":
+    - "1"
+    - 1
+    - evet
+    - yes
+
+# organ — leave as-is; multi-value bag column with very long tail.
+# label_synonyms.py shows 526 distinct values → 299 clusters. Even consolidating
+# aggressively, organ has 80+ legitimate medical categories. Not worth gating training
+# behind this. We'll just lowercase + strip in clean_dataset.py and use raw values.
+organ: {}
