@@ -36,7 +36,7 @@ Model/
 sunum/
 ```
 
-`sunum/` is intentionally empty so you can put the final presentation file there.
+`sunum/` is intentionally empty so you can put the final presentation file there
 
 ## Install
 
