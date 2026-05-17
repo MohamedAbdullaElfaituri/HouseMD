@@ -41,15 +41,19 @@ sunum/
 ## Install
 
 ```bash
-python -m pip install -r requirements.txt
+# From the workspace root (NLP_Project/)
+python -m pip install -r HouseMD/requirements.txt
 ```
 
 For old transformer experiments, use `Model/requirements.txt` instead. The final demo does not require Torch or Transformers.
 
+Note: The bundled joblib models were persisted with `scikit-learn==1.8.0`. Using a different scikit-learn version may cause runtime errors during inference.
+
 ## Run Demo
 
 ```bash
-python Model/app/app.py
+# From the workspace root (NLP_Project/)
+python HouseMD/Model/app/app.py
 ```
 
 The demo loads the current best score-split combination:

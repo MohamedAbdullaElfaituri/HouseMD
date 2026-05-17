@@ -51,6 +51,19 @@ Onemli argumanlar:
 
 ## Gradio Demo
 
+Demo (joblib tabanli, Torch/Transformers gerektirmez) icin hafif kurulum:
+
+```bash
+pip install -r requirements.txt
+```
+
+Not: `requirements.txt` (HouseMD kok dizininde) Gradio ve scikit-learn icin yeterlidir.
+Eger egitim (Torch/Transformers) da yapacaksaniz bunun yerine:
+
+```bash
+pip install -r Model/requirements.txt
+```
+
 ```bash
 python Model/app/app.py
 ```

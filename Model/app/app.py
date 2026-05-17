@@ -101,7 +101,42 @@ def predict_bundle(bundle: dict, features: dict[str, str], top_k: int = 3) -> di
 
 
 def main() -> int:
-    import gradio as gr
+    try:
+        import gradio as gr
+    except ModuleNotFoundError as exc:
+        if getattr(exc, "name", None) == "gradio":
+            raise SystemExit(
+                "Missing dependency: gradio.\n\n"
+                "Lightweight demo install (recommended):\n"
+                "  pip install -r HouseMD/requirements.txt\n\n"
+                "Full training stack install (Torch/Transformers):\n"
+                "  pip install -r HouseMD/Model/requirements.txt\n"
+            ) from exc
+        raise
+
+    import sklearn
+
+    def _version_tuple(version: str) -> tuple[int, int, int]:
+        parts = []
+        for chunk in version.split("."):
+            digits = "".join(ch for ch in chunk if ch.isdigit())
+            if digits == "":
+                break
+            parts.append(int(digits))
+            if len(parts) == 3:
+                break
+        while len(parts) < 3:
+            parts.append(0)
+        return parts[0], parts[1], parts[2]
+
+    if _version_tuple(sklearn.__version__) < (1, 8, 0):
+        raise SystemExit(
+            "Incompatible scikit-learn version for the bundled joblib models.\n\n"
+            f"Detected: scikit-learn {sklearn.__version__}\n"
+            "Required: scikit-learn >= 1.8.0\n\n"
+            "Fix (recommended): use Python 3.11 and run:\n"
+            "  python -m pip install -r HouseMD/requirements.txt\n"
+        )
 
     models = load_models()
 
